@@ -75,6 +75,7 @@
 		    luadbi = lprev.luadbi.overrideAttrs(prevAttrs: {
 		      src = prev.fetchgit (removeAttrs (builtins.fromJSON ''{
                          "url": "https://github.com/mwild1/luadbi.git",
+			 "rev" = "01bf20f59a7251684ad74e4e0a5323f673fef1bb";
                          "date": "",
                          "path": "",
                          "sha256": "sha256-4cZFCX51NmnHjVITnkhGdvb9bymqE/6enIOcVUpZmYM=",
@@ -96,6 +97,7 @@
                       }).outPath;
 		      src = prev.fetchgit (removeAttrs (builtins.fromJSON ''{
                          "url": "https://github.com/mpeterv/markdown.git",
+			 "rev" = "8c09109924b218aaecbfd4d4b1de538269c4d765";
                          "date": "",
                          "path": "",
                          "sha256": "sha256-PgRGiSwDODSyNSgeN7kNOCZwjLbGf1Qts/jrfLGYKwU=",
@@ -118,6 +120,7 @@
                       }).outPath;
 		      src = prev.fetchgit (removeAttrs (builtins.fromJSON ''{
                          "url": "https://github.com/lgi-devs/lgi.git",
+			 "rev" = "975737940d4463abc107fc366b9ab817e9217e0b";
                          "date": "",
                          "path": "",
                          "sha256": "sha256-G13BrqUmHwRtlmBVafo0LiwsX4nL/muw0/9cca+sigg=",
