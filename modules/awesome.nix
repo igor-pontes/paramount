@@ -47,7 +47,7 @@
         src = fetchFromGitHub {
           owner = "awesomewm";
           repo = "awesome";
-          rev = "master";
+          rev = "0e5fc4575ab0adbae75908cb49937d9cf63437ec";
           sha256 = "ZFjYKyzQiRgg5uHgMLeex6oOKDrXMhp9dxxHEm2xeH4=";
         };
 	postInstall = ''

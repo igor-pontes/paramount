@@ -1,5 +1,4 @@
-#{ pkgs, lib, yoru-theme, ... }:
-{ pkgs, lib, ... }:
+{ pkgs, lib, bling, wsmcolor, wsmupower, layout-machi, ... }:
 #let 
 #  lua-pam = with pkgs; (stdenv.mkDerivation {
 #    name = "lua-pam";
@@ -46,6 +45,26 @@
 
   home.file.".config/awesome/modules/lockscreen/lib" = { 
     source = ../../files/lib/pam;
+    recursive = true;
+  };
+
+  home.file.".config/awesome/modules/bling" = { 
+    source = bling;
+    recursive = true;
+  };
+
+  home.file.".config/awesome/modules/color" = { 
+    source = wsmcolor;
+    recursive = true;
+  };
+
+  home.file.".config/awesome/modules/layout-machi" = { 
+    source = layout-machi;
+    recursive = true;
+  };
+
+  home.file.".config/awesome/modules/awesome-battery_widget" = { 
+    source = wsmupower;
     recursive = true;
   };
 

@@ -11,26 +11,31 @@
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    #substituters = {
-    #  "https://cache.nixos.org"
-    #};
-    #extra-substituters = [
-    #  "https://nix-community.cachix.org"
-    #  "https://nixpkgs-wayland.cachix.org"
-    #];
-    #extra-trusted-public-keys = [
-    #  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    #  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    #  "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-    #];
-    #yoru-theme = {
-    #  url = "github:skobman/yoru/new";
-    #  flake = false;
-    #};
+
+    bling = {
+      url = "github:BlingCorp/bling?rev=70c894e58bb88dea55e9799ad373fdaea309da9e";
+      flake = false;
+    };
+
+    wsmcolor = {
+      url = "github:andOrlando/color?rev=064459a663a717ab29e4c4efd54c9fc0a2e51d66";
+      flake = false;
+    };
+
+    wsmupower = {
+      url = "github:Aire-One/awesome-battery_widget?rev=48b83f444d175496104f3b9ff36f1dff0473e01e";
+      flake = false;
+    };
+
+    layout-machi = {
+      url = "github:xinhaoyuan/layout-machi?rev=d15b877fb5b0a5f90f010871c7dbfb163b874fe4";
+      flake = false;
+    };
+
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = inputs@{ self, nixpkgs, nur, home-manager, nix-vscode-extensions, ... }: 
+  outputs = inputs@{ self, nixpkgs, nur, home-manager, nix-vscode-extensions, bling, wsmcolor, wsmupower, layout-machi, ... }: 
   let
     x64_system = "x86_64-linux";
     x64_specialArgs = {

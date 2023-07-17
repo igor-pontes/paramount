@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "bling": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1658565404,
+        "narHash": "sha256-sUUMgdAmXAB/2ocwoo2OTZlWRbSRLdKi1oZB20qRNWU=",
+        "owner": "BlingCorp",
+        "repo": "bling",
+        "rev": "70c894e58bb88dea55e9799ad373fdaea309da9e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BlingCorp",
+        "repo": "bling",
+        "rev": "70c894e58bb88dea55e9799ad373fdaea309da9e",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -52,6 +69,23 @@
         "owner": "nix-community",
         "ref": "release-23.05",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "layout-machi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656508961,
+        "narHash": "sha256-3oC2DOqxp/Kpcrt2g+KxpfQkh9XSrTVSHZ7yxQblNeI=",
+        "owner": "xinhaoyuan",
+        "repo": "layout-machi",
+        "rev": "d15b877fb5b0a5f90f010871c7dbfb163b874fe4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xinhaoyuan",
+        "repo": "layout-machi",
+        "rev": "d15b877fb5b0a5f90f010871c7dbfb163b874fe4",
         "type": "github"
       }
     },
@@ -140,11 +174,15 @@
     },
     "root": {
       "inputs": {
+        "bling": "bling",
         "home-manager": "home-manager",
+        "layout-machi": "layout-machi",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nur": "nur"
+        "nur": "nur",
+        "wsmcolor": "wsmcolor",
+        "wsmupower": "wsmupower"
       }
     },
     "systems": {
@@ -159,6 +197,40 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "wsmcolor": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1652810463,
+        "narHash": "sha256-nMD4UtToWKoZ3DX3GocQoBGJw9ZYRccNnNXuszjipxY=",
+        "owner": "andOrlando",
+        "repo": "color",
+        "rev": "064459a663a717ab29e4c4efd54c9fc0a2e51d66",
+        "type": "github"
+      },
+      "original": {
+        "owner": "andOrlando",
+        "repo": "color",
+        "rev": "064459a663a717ab29e4c4efd54c9fc0a2e51d66",
+        "type": "github"
+      }
+    },
+    "wsmupower": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1629647896,
+        "narHash": "sha256-ELNWKnwHDOxgC30xP3gTT1pYLZgGvGd9eVJKd5Ok98A=",
+        "owner": "Aire-One",
+        "repo": "awesome-battery_widget",
+        "rev": "48b83f444d175496104f3b9ff36f1dff0473e01e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Aire-One",
+        "repo": "awesome-battery_widget",
+        "rev": "48b83f444d175496104f3b9ff36f1dff0473e01e",
         "type": "github"
       }
     }
