@@ -31,10 +31,10 @@
  	# https://github.com/fortuneteller2k/nixpkgs-f2k/blob/master/overlays/window-managers.nix
         gtk3Support = true;
         cmakeFlags = old.cmakeFlags ++ [ "-DGENERATE_MANPAGES=OFF" ];
-	buildInputs = old.buildInputs ++ [ pam python ];
+	buildInputs = old.buildInputs ++ [ pam ];
  	GI_TYPELIB_PATH =
         let
-          extraGIPackages = [ pango upower playerctl python ];
+          extraGIPackages = [ pango upower playerctl python luaEnv ];
           mkTypeLibPath = pkg: "${pkg}/lib/girepository-1.0";
           extraGITypeLibPaths = lib.forEach extraGIPackages mkTypeLibPath;
         in
@@ -47,7 +47,7 @@
         src = fetchFromGitHub {
           owner = "awesomewm";
           repo = "awesome";
-          rev = "0e5fc4575ab0adbae75908cb49937d9cf63437ec";
+          rev = "4dc4b7d4d391da3e0c65d4cfcd2878f32521e903";
           sha256 = "ZFjYKyzQiRgg5uHgMLeex6oOKDrXMhp9dxxHEm2xeH4=";
         };
 	postInstall = ''

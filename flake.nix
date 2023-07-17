@@ -75,7 +75,7 @@
 		    luadbi = lprev.luadbi.overrideAttrs(prevAttrs: {
 		      src = prev.fetchgit (removeAttrs (builtins.fromJSON ''{
                          "url": "https://github.com/mwild1/luadbi.git",
-			 "rev" = "01bf20f59a7251684ad74e4e0a5323f673fef1bb";
+                         "rev": "01bf20f59a7251684ad74e4e0a5323f673fef1bb",
                          "date": "",
                          "path": "",
                          "sha256": "sha256-4cZFCX51NmnHjVITnkhGdvb9bymqE/6enIOcVUpZmYM=",
@@ -97,7 +97,7 @@
                       }).outPath;
 		      src = prev.fetchgit (removeAttrs (builtins.fromJSON ''{
                          "url": "https://github.com/mpeterv/markdown.git",
-			 "rev" = "8c09109924b218aaecbfd4d4b1de538269c4d765";
+                         "rev": "8c09109924b218aaecbfd4d4b1de538269c4d765",
                          "date": "",
                          "path": "",
                          "sha256": "sha256-PgRGiSwDODSyNSgeN7kNOCZwjLbGf1Qts/jrfLGYKwU=",
@@ -113,14 +113,23 @@
 		    lgi = lprev.buildLuarocksPackage {
 		      pname = "lgi";
   		      version = "scm-1";
-		      patches = [];
+		      #patches = [ ./files/lgi-0.9.2-lua54.patch ];
 		      knownRockspec = (prev.fetchurl {
                         url    = "https://raw.githubusercontent.com/lgi-devs/lgi/master/lgi-scm-1.rockspec";
                         sha256 = "sha256-1MCWll/Sfhk74Pe72jfJu8Dbgg0Q+XLm/b34ALoTgvQ=";
                       }).outPath;
+
+		      # 0.9.2
+                      #"rev": "0fdcf8c677094d0c109dfb199031fdbc0c9c47ea",
+                      #"sha256": "sha256-UpamUbvqzF0JKV3J0wIiJlV6iedwe823vD0EIm3zKw8=",
+
+                      #git
+                      #"rev": "975737940d4463abc107fc366b9ab817e9217e0b",
+                      #"sha256": "sha256-G13BrqUmHwRtlmBVafo0LiwsX4nL/muw0/9cca+sigg=",
+
 		      src = prev.fetchgit (removeAttrs (builtins.fromJSON ''{
                          "url": "https://github.com/lgi-devs/lgi.git",
-			 "rev" = "975737940d4463abc107fc366b9ab817e9217e0b";
+                         "rev": "975737940d4463abc107fc366b9ab817e9217e0b",
                          "date": "",
                          "path": "",
                          "sha256": "sha256-G13BrqUmHwRtlmBVafo0LiwsX4nL/muw0/9cca+sigg=",

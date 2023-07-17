@@ -93,7 +93,7 @@ local function widget()
 			widget = wibox.widget.separator,
 			shape = helpers.ui.rrect(beautiful.border_radius),
 		},
-		scrollbar_width = dpi(10),
+		scrollbar_width = dpi(5),
 		step = 50,
 	})
 
@@ -154,25 +154,30 @@ local function github_activity()
 				normal_bg = beautiful.widget_bg,
 				halign = "left",
 				child = {
+					-- problem here
 					{
-						step_function = wibox.container.scroll.step_functions.waiting_nonlinear_back_and_forth,
-						fps = 60,
-						speed = 75,
+						--step_function = wibox.container.scroll.step_functions.waiting_nonlinear_back_and_forth,
+						--speed = 75,
+						--fps = 60,
 						{
-							markup = "<b> "
-								.. event.actor.display_login
-								.. "</b> "
-								.. action_and_link.action_string
-								.. " <b>"
-								.. event.repo.name
-								.. "</b>",
+							-- markup = "<b> " .. event.actor.display_login .. "</b> " .. action_and_link.action_string .. " <b>" .. event.repo.name .. "</b>",
+							markup = "<b>" .. event.repo.name .. "</b>",
 							font = beautiful.font_name .. "Regular 11",
 							widget = wibox.widget.textbox,
 						},
 						forced_width = dpi(300),
-						widget = wibox.container.scroll.horizontal,
+						spacing = dpi(5),
+						-- cant use scroll.horizontal here ... (TODO)
+						widget = wibox.layout.fixed.horizontal, -- problem here
+
 					},
+					-- no problem here
 					{
+						{
+							markup = event.actor.display_login,
+							font = beautiful.font_name .. "Regular 11",
+							widget = wibox.widget.textbox,
+						},
 						{
 							{
 								image = icons_dir .. action_and_link.icon,
@@ -194,6 +199,7 @@ local function github_activity()
 						spacing = dpi(5),
 						layout = wibox.layout.fixed.horizontal,
 					},
+					
 					layout = wibox.layout.align.vertical,
 				},
 				on_release = function()
