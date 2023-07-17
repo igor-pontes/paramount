@@ -4,7 +4,7 @@
     enable = true;
     userSettings = {
       "editor.tabSize" = 2;
-      "workbench.iconTheme" = "Material Icon Theme";
+      "workbench.iconTheme" = "material-icon-theme";
       "workbench.colorTheme" = "Atom One Dark";
       "editor.fontSize" = 14;
       "breadcrumbs.enabled" = true;
