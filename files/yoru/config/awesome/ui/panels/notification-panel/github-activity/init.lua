@@ -93,8 +93,8 @@ local function widget()
 			widget = wibox.widget.separator,
 			shape = helpers.ui.rrect(beautiful.border_radius),
 		},
-		scrollbar_width = dpi(5),
-		step = 50,
+		scrollbar_width = dpi(4),
+		step = 100,
 	})
 
 	return missing_credentials_text, error_icon, scrollbox
@@ -130,7 +130,6 @@ local function github_activity()
 		scrollbox:reset()
 		collectgarbage("collect")
 		github_activity_widget:raise_widget(scrollbox)
-
 		for index, event in ipairs(events) do
 			local action_and_link = generate_action_string(event)
 
@@ -148,30 +147,23 @@ local function github_activity()
 					awful.spawn("xdg-open http://github.com/" .. event.actor.login, false)
 				end,
 			})
-
+			
 			local repo_info = widgets.button.elevated.normal({
-				paddings = dpi(5),
 				normal_bg = beautiful.widget_bg,
 				halign = "left",
-				child = {
-					-- problem here
+				child = 
+				{
 					{
-						--step_function = wibox.container.scroll.step_functions.waiting_nonlinear_back_and_forth,
-						--speed = 75,
-						--fps = 60,
 						{
-							-- markup = "<b> " .. event.actor.display_login .. "</b> " .. action_and_link.action_string .. " <b>" .. event.repo.name .. "</b>",
 							markup = "<b>" .. event.repo.name .. "</b>",
 							font = beautiful.font_name .. "Regular 11",
 							widget = wibox.widget.textbox,
 						},
 						forced_width = dpi(300),
 						spacing = dpi(5),
-						-- cant use scroll.horizontal here ... (TODO)
-						widget = wibox.layout.fixed.horizontal, -- problem here
+						widget = wibox.layout.fixed.horizontal,
 
 					},
-					-- no problem here
 					{
 						{
 							markup = event.actor.display_login,
@@ -217,7 +209,7 @@ local function github_activity()
 			scrollbox:add(content)
 
 			if index == #events then
-				scrollbox:add(spacer_vertical(20))
+				scrollbox:add(spacer_vertical(2))
 			end
 		end
 	end)

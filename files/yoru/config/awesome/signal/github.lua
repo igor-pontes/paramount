@@ -45,7 +45,7 @@ function github:check_username(callback)
 end
 
 local function github_events(self)
-	local link = "https://api.github.com/users/%s/received_events"
+	local link = "https://api.github.com/users/%s/received_events?per_page=14"
 	local path = PATH .. "events/"
 	local avatars_path = path .. "avatars/"
 	local DATA_PATH = path .. "data.json"
