@@ -1,2 +1,7 @@
 # nixconfig
-My NixOS configuration.
+
+## My NixOS configuration.
+
+  - Window Manager: AwesomeWM
+  - Awesome Theme: https://github.com/rxyhn/yoru
+  - 
