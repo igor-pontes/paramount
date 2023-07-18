@@ -8,4 +8,4 @@
   - Icon Theme: Colloid
   - Terminal: Wezterm
 
-![alt text](https://github.com/fafuja/nixconfig/blob/main/preview.png?raw=true)
+![alt text](https://github.com/fafuja/nixconfig/blob/main/.github/preview.png?raw=true)
