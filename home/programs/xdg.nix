@@ -19,7 +19,11 @@
 
     "audio/*" = ["mpv.desktop"];
     "video/*" = ["mpv.dekstop"];
-    "image/*" = ["imv.desktop"];
+    "image/*" = ["feh.desktop"];
+    "image/png" = ["feh.desktop"];
+    "image/jpg" = ["feh.desktop"];
+    "image/jpeg" = ["feh.desktop"];
+    "image/svg" = ["feh.desktop"];
     "application/json" = browser;
     "application/pdf" = ["org.pwmt.zathura.desktop.desktop"];
     "x-scheme-handler/discord" = ["discordcanary.desktop"];
