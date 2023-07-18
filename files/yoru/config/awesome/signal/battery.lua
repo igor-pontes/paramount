@@ -60,6 +60,7 @@ local function new()
 
   if UPower.Client():get_devices() == nil then
     ret:emit_signal "no_devices"
+    print(UPower.Client():get_devices())
   else
     awful.spawn.easy_async_with_shell("echo $(upower -e | grep 'BAT' | head -n 1)", function(stdout)
       local device = stdout:gsub("\n", "")

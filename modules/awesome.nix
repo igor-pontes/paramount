@@ -3,6 +3,8 @@
   services.picom.enable = true;
   services.picom.backend = "glx";
   services.acpid.enable = true;
+  services.upower.enable = true;
+  #hardware.bluetooth.enable = true;
 
   services.xserver = {
     enable = true;
@@ -47,7 +49,8 @@
         src = fetchFromGitHub {
           owner = "awesomewm";
           repo = "awesome";
-          rev = "4dc4b7d4d391da3e0c65d4cfcd2878f32521e903";
+          #rev = "4dc4b7d4d391da3e0c65d4cfcd2878f32521e903";
+          rev = "0e5fc4575ab0adbae75908cb49937d9cf63437ec";
           sha256 = "ZFjYKyzQiRgg5uHgMLeex6oOKDrXMhp9dxxHEm2xeH4=";
         };
 	postInstall = ''
@@ -91,7 +94,7 @@
     dbus
     alsa-utils
     ffmpeg
-    xfce.xfce4-power-manager
+    # xfce.xfce4-power-manager
     neovim
     sysstat
     materia-theme

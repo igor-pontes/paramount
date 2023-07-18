@@ -16,6 +16,8 @@ return function(s)
 	--- Widgets
 	--- ~~~~~~~~~~
 	s.clock = require("ui.panels.top-panel.clock")(s)
+	s.cputemp = require("ui.panels.top-panel.cputemp")()
+	s.gputemp = require("ui.panels.top-panel.gputemp")()
 	s.battery = require("ui.panels.top-panel.battery")()
 	s.network = require("ui.panels.top-panel.network")()
 
@@ -261,6 +263,8 @@ return function(s)
 					tag_list(s),
 					{
 						system_tray(),
+						s.cputemp,
+						s.gputemp,
 						s.battery,
 						s.network,
 						notif_panel(),

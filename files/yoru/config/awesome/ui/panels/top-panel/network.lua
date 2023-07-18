@@ -9,6 +9,7 @@ local wbutton = require("ui.widgets.button")
 --- ~~~~~~~~~~~~~~
 
 return function()
+	
 	local network = wibox.widget({
 		{
 			id = "icon",
@@ -44,6 +45,7 @@ return function()
 					]]
 				awful.spawn.easy_async_with_shell(getstrength, function(stdout)
 					if not tonumber(stdout) then
+						network.icon:set_text("")
 						return
 					end
 					local strength = tonumber(stdout)
@@ -60,7 +62,7 @@ return function()
 					end
 				end)
 			else
-				network.icon:set_text("")
+				network.icon:set_text("")
 			end
 		end
 	)

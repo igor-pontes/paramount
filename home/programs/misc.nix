@@ -10,6 +10,7 @@
     krita
     obsidian
     discord
+    gnome.gucharmap
   ];
 
   programs = {

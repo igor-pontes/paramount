@@ -23,6 +23,10 @@
           vscode = pkgs.vscode-with-extensions.override {
             vscodeExtensions = with nix-vscode-extensions.extensions; [
               vscodevim.vim
+	      akamud.vscode-theme-onedark
+	      davidanson.vscode-markdownlint
+	      pkief.material-icon-theme
+	      bbenoist.nix
             ];
           };
         };

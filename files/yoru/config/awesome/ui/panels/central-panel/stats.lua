@@ -152,14 +152,14 @@ local function temperature()
 		function(stdout)
 			local temp_path = stdout:gsub("%\n", "")
 			if temp_path == "" or not temp_path then
-				temp_path = "/sys/class/thermal/thermal_zone0/temp"
+			      temp_path = "/sys/class/hwmon/hwmon1/temp1_input"
 			end
 
 			watch([[
 			sh -c "cat ]] .. temp_path .. [["
 			]], 15, function(_, stdout)
 				local temp = stdout:match("(%d+)")
-				local temp_value = (temp / 1000) / max_temp * 100
+				local temp_value = (temp / 1000)
 
 				stats:set_value(temp_value)
 				tooltip:set_markup_silently(helpers.ui.colorize_text(temp_value .. "°C", "#a3cdff"))
@@ -266,3 +266,4 @@ local stats = wibox.widget({
 })
 
 return create_boxed_widget(stats, dpi(200), dpi(300), beautiful.widget_bg)
+

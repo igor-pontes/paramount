@@ -23,6 +23,7 @@ return {
 	ram = dir .. "ram.svg",
 	cpu = dir .. "cpu.svg",
 	temp = dir .. "temp.svg",
+	gpu = dir .. "gpu-card.svg",
 	disk = dir .. "disk.svg",
 	battery = dir .. "battery.svg",
 	battery_low = dir .. "battery-low.svg",
