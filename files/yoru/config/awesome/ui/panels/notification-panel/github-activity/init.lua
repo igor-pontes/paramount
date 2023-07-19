@@ -125,7 +125,7 @@ local function github_activity()
 	github_daemon:connect_signal("missing_credentials", function()
 		github_activity_widget:raise_widget(missing_credentials_text)
 	end)
-
+	
 	github_daemon:connect_signal("events", function(self, events, path_to_avatars)
 		scrollbox:reset()
 		collectgarbage("collect")
@@ -212,6 +212,7 @@ local function github_activity()
 				scrollbox:add(spacer_vertical(2))
 			end
 		end
+		
 	end)
 
 	return github_activity_widget

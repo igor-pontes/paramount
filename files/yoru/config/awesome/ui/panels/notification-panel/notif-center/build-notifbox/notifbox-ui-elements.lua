@@ -34,6 +34,17 @@ ui_notifbox_builder.notifbox_title = function(title)
 	})
 end
 
+--- Clear button message
+ui_notifbox_builder.clear_title = function()
+	return wibox.widget({
+		markup = "Clear all",
+		font = beautiful.font_name .. "Regular 14",
+		align = "center",
+		valign = "center",
+		widget = wibox.widget.textbox,
+	})
+end
+
 --- Notification message container
 ui_notifbox_builder.notifbox_message = function(msg)
 	return wibox.widget({

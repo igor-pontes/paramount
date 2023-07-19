@@ -6,9 +6,15 @@ local dpi = beautiful.xresources.apply_dpi
 local empty_notifbox = require("ui.panels.notification-panel.notif-center.build-notifbox.empty-notifbox")
 local notifbox_scroller = require("ui.panels.notification-panel.notif-center.build-notifbox.notifbox-scroller")
 
+
 local notif_core = {}
 
 notif_core.remove_notifbox_empty = true
+
+notif_core.notifbox_clear = wibox.widget({
+	layout = wibox.layout.fixed.vertical,
+	spacing = dpi(10),
+})
 
 notif_core.notifbox_layout = wibox.widget({
 	layout = wibox.layout.fixed.vertical,
@@ -17,9 +23,11 @@ notif_core.notifbox_layout = wibox.widget({
 })
 
 notifbox_scroller(notif_core.notifbox_layout)
+notifbox_scroller(notif_core.notifbox_clear)
 
 notif_core.reset_notifbox_layout = function()
 	notif_core.notifbox_layout:reset()
+	notif_core.notifbox_clear:reset()
 	notif_core.notifbox_layout:insert(1, empty_notifbox)
 	notif_core.remove_notifbox_empty = true
 end
@@ -27,9 +35,10 @@ end
 local notifbox_add = function(n, notif_icon, notifbox_color)
 	if #notif_core.notifbox_layout.children == 1 and notif_core.remove_notifbox_empty then
 		notif_core.notifbox_layout:reset(notif_core.notifbox_layout)
+		local clear_button = require("ui.panels.notification-panel.notif-center.build-notifbox.notifbox-clear")
+		notif_core.notifbox_clear:insert(1, clear_button())
 		notif_core.remove_notifbox_empty = false
 	end
-
 	local notifbox_box = require("ui.panels.notification-panel.notif-center.build-notifbox.notifbox-builder")
 	notif_core.notifbox_layout:insert(1, notifbox_box(n, notif_icon, n.title, n.message, n.app_name, notifbox_color))
 end
