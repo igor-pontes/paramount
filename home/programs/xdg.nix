@@ -1,5 +1,6 @@
 {config, ...}: let
-  browser = ["firefox.desktop"];
+  #browser = ["firefox.desktop"];
+  browser = ["librewolf.desktop"];
 
   # XDG MIME types
   associations = {

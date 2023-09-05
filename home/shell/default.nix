@@ -16,9 +16,9 @@ in {
     XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
 
     # set default applications
-    EDITOR = "vim";
+    EDITOR = "nvim";
     BROWSER = "firefox";
-    TERMINAL = "alacritty";
+    TERMINAL = "wezterm";
 
     # enable scrolling in git diff
     DELTA_PAGER = "less -R";

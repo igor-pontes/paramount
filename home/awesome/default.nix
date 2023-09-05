@@ -72,6 +72,8 @@
 
   home.file.".xinitrc".source = ../../files/yoru/misc/home/.xinitrc;
 
+  home.file.".zprofile".source = ../../files/yoru/misc/home/.zprofile;
+
   home.file.".local/share/fonts" = {
     source = ../../files/yoru/misc/fonts; 
     recursive = true;

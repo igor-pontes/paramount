@@ -14,6 +14,7 @@
   ];
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+
   security.rtkit.enable = true; 
   sound.enable = true;
   security.polkit.enable = true;

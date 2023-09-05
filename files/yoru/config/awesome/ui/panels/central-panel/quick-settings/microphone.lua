@@ -27,13 +27,17 @@ local widget = button("")
 local update_widget = function()
 	awful.spawn.easy_async_with_shell(
 		[[
-		amixer sget Capture toggle | tail -n 1 | awk '{print $6}' | tr -d '[]'
+		-- amixer sget Capture toggle | tail -n 1 | awk '{print $6}' | tr -d '[]'
+		-- amixer set Capture toggle | tail -n 1 | awk '{print $5}' | tr -d '[]'
+		-- amixer set Capture toggle | tail -n 1 | grep -c "on"
+		amixer get Capture | tail -n 1 | grep -c "off"
 		]],
 		function(stdout)
-			if stdout:match("on") then
-				widget:turn_off()
-			else
+			-- if stdout:match("1") then
+			if stdout:match("1") then
 				widget:turn_on()
+			else
+				widget:turn_off()
 			end
 		end
 	)

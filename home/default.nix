@@ -5,6 +5,7 @@
     ./programs
     ./rofi
     ./shell
+    ./modules
   ];
 
   services.mpd = {
@@ -58,7 +59,7 @@
     enable = true;
     package = pkgs.ncmpcpp.override { visualizerSupport = true; };
   };
-
+  
   home = {
     username = "fafuja";
     homeDirectory = "/home/fafuja";
@@ -72,6 +73,6 @@
     name = "Colloid-cursors";
     size = 10;
   };
-  
+
   programs.home-manager.enable = true;
 }

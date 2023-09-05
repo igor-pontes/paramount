@@ -1,16 +1,30 @@
 { pkgs, config, ... }:
+#let microsoft-edge = pkgs.microsoft-edge.overrideAttrs (old: {
+#  src = pkgs.fetchurl {
+#    url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_116.0.1938.62-1_amd64.deb";
+#    sha256 = "sha256-e2y4y7BySfOJvcQviNOMW0/JO2CKCpNnhrGP7N86LX0=";
+#  };
+#}); 
+#in 
 {
   home.packages = with pkgs; [
     zip
     unzip
+    steam
+    #microsoft-edge
     htop
+    ripgrep
+    fzf
+    gparted
     authy
     libnotify
     xdg-utils
     krita
+    #inkscape
     obsidian
     discord
     gnome.gucharmap
+    python312
   ];
 
   programs = {
@@ -29,10 +43,20 @@
 
     zsh = {
       enable = true;
+      enableAutosuggestions = true;
+
+      initExtra = ''
+        calc() {
+          local input=$1
+          local result=$(python -c "print($input)")
+          echo "$result"
+        }
+      '';
       shellAliases = {
         ll = "ls -la";
         update = "sudo nixos-rebuild switch --flake /etc/nixos#pc";
-        vim = "sudo nvim";
+	deleteold = "sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system";
+        #vim = "sudo nvim";
       };
       history = {
         size = 10000;

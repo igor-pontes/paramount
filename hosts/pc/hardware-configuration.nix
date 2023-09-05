@@ -18,6 +18,16 @@
       fsType = "ext4";
     };
 
+  fileSystems."/home/fafuja/games" =
+    { device = "/dev/disk/by-uuid/1eb80166-1147-46c2-96e6-ffcf869b6d71";
+      fsType = "ext4";
+    };
+
+  fileSystems."/home/fafuja/bigfiles" =
+    { device = "/dev/disk/by-uuid/9242c510-83b4-4652-9dc3-88c2f2fe605a";
+      fsType = "ext4";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/0F14-ECBF";
       fsType = "vfat";

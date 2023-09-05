@@ -1,7 +1,6 @@
 { pkgs, lib, stdenv, ... }:
 {
   services.picom.enable = true;
-  services.picom.backend = "glx";
   services.acpid.enable = true;
   services.upower.enable = true;
   #hardware.bluetooth.enable = true;
@@ -18,6 +17,7 @@
 	startx.enable = true;
     };
     tty = 0;
+
     modules = with pkgs.xorg; [ xhost xinit xinput xorgserver xf86inputjoystick xrandr ];
     windowManager.awesome = with pkgs; {
       enable = true;
@@ -95,7 +95,7 @@
     alsa-utils
     ffmpeg
     # xfce.xfce4-power-manager
-    neovim
+    #neovim
     sysstat
     materia-theme
     colloid-icon-theme

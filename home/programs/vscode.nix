@@ -4,9 +4,11 @@
     enable = true;
     userSettings = {
       "editor.tabSize" = 2;
-      "workbench.iconTheme" = "material-icon-theme";
-      "workbench.colorTheme" = "Atom One Dark";
-      "editor.fontSize" = 14;
+      #"workbench.iconTheme" = "material-icon-theme";
+      "workbench.iconTheme" = "keen-neutral-icon-theme";
+      "workbench.colorTheme" = "Black Waves";
+      #"workbench.colorTheme" = "Atom One Dark";
+      "editor.fontSize" = 17;
       "breadcrumbs.enabled" = true;
       "workbench.fontAliasing" = "antialiased";
       "editor.minimap.enabled" = false;
@@ -23,9 +25,13 @@
           vscode = pkgs.vscode-with-extensions.override {
             vscodeExtensions = with nix-vscode-extensions.extensions; [
               vscodevim.vim
-	      akamud.vscode-theme-onedark
+	      #akamud.vscode-theme-onedark
+	      #harg.iceberg
+	      orhun.black-waves
+	      keenethics.keen-neutral-icon-theme
+	      #akamud.vscode-theme-onedark
 	      davidanson.vscode-markdownlint
-	      pkief.material-icon-theme
+	      #pkief.material-icon-theme
 	      bbenoist.nix
             ];
           };
