@@ -38,13 +38,24 @@ require("ui")
 --- ░▀▀▀░▀░▀░▀░▀░▀▀░░▀░▀░▀▀▀░▀▀▀
 
 --- Enable for lower memory consumption
-collectgarbage("setpause", 110)
-collectgarbage("setstepmul", 1000)
-gears.timer({
-	timeout = 5,
-	autostart = true,
-	call_now = true,
-	callback = function()
-		collectgarbage("collect")
-	end,
-})
+
+--collectgarbage("setpause", 110)
+--collectgarbage("setstepmul", 1000)
+--gears.timer({
+--	timeout = 5,
+--	autostart = true,
+--	call_now = true,
+--	callback = function()
+--		collectgarbage("collect")
+--	end,
+--})
+--
+collectgarbage("incremental", 150, 600, 0)
+
+gears.timer.start_new(60, function()
+  -- just let it do a full collection
+  collectgarbage()
+  -- or else set a step size
+  -- collectgarbage("step", 30000)
+  return true
+end)

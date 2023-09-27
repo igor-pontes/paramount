@@ -72,19 +72,6 @@ return function(s)
 		widget = wibox.container.background,
 	})
 
-	--- Weather
-	s.weather = require("ui.panels.info-panel.weather")
-	local weather = wibox.widget({
-		{
-			s.weather,
-			margins = dpi(16),
-			widget = wibox.container.margin,
-		},
-		bg = beautiful.one_bg3,
-		shape = helpers.ui.rrect(beautiful.border_radius),
-		widget = wibox.container.background,
-	})
-
 	s.info_panel = awful.popup({
 		type = "dock",
 		screen = s,
@@ -138,21 +125,6 @@ return function(s)
 						layout = wibox.layout.align.vertical,
 					},
 					shape = helpers.ui.prrect(beautiful.border_radius * 2, false, true, false, false),
-					bg = beautiful.widget_bg,
-					widget = wibox.container.background,
-				},
-				{ ----------- BOTTOM GROUP -----------
-					{
-						helpers.ui.vertical_pad(dpi(25)),
-						{
-							nil,
-							weather,
-							expand = "none",
-							layout = wibox.layout.align.horizontal,
-						},
-						helpers.ui.vertical_pad(dpi(30)),
-						layout = wibox.layout.fixed.vertical,
-					},
 					bg = beautiful.widget_bg,
 					widget = wibox.container.background,
 				},

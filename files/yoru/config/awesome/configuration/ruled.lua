@@ -43,6 +43,9 @@ ruled.client.connect_signal("request::rules", function()
 				"Peek",
 				"wezterm",
 				"librewolf",
+				"chromium",
+				"Chromium",
+				"chromium-browser",
 			},
 		},
 		properties = {

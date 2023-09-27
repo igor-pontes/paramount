@@ -35,7 +35,7 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = inputs@{ self, nixpkgs, nur, home-manager, nix-vscode-extensions, bling, wsmcolor, wsmupower, layout-machi, ... }: 
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nur, home-manager, nix-vscode-extensions, bling, wsmcolor, wsmupower, layout-machi, ... }: 
   let
     x64_system = "x86_64-linux";
     x64_specialArgs = {
@@ -53,7 +53,8 @@
     nixosConfigurations = {
       pc = nixpkgs.lib.nixosSystem {
 	system = x64_system;
-        specialArgs = inputs;
+        #specialArgs = inputs;
+        specialArgs = x64_specialArgs;
         modules = [
  	  home-manager.nixosModules.home-manager {
 	    home-manager.useGlobalPkgs = true;

@@ -6,7 +6,10 @@
   
   environment.systemPackages = with pkgs; [
     wget
+    pciutils
+    cifs-utils
     curl
+    socat
     git
     lm_sensors
     neofetch
@@ -14,11 +17,15 @@
   ];
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
-
+  #virtualisation = {
+  #  libvirtd = {
+  #    enable = true;
+  #    qemu.ovmf.enable = true;
+  #  };
+  #};
   security.rtkit.enable = true; 
   sound.enable = true;
   security.polkit.enable = true;
-  networking.firewall.enable = false;
   services.printing.enable = true;
 
   fonts = {

@@ -12,6 +12,8 @@
       xterm.enable = false;
     };
 
+    dpi = 120;
+
     displayManager = {
         defaultSession = "none+awesome";
 	startx.enable = true;
@@ -97,6 +99,7 @@
     # xfce.xfce4-power-manager
     #neovim
     sysstat
+    xorg.xinput
     materia-theme
     colloid-icon-theme
   ];

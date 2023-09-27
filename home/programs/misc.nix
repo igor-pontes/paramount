@@ -9,8 +9,10 @@
 {
   home.packages = with pkgs; [
     zip
+    gcc
     unzip
-    steam
+    virt-manager
+    conda
     #microsoft-edge
     htop
     ripgrep
@@ -34,9 +36,14 @@
     tmux = {
       enable = true;
       clock24 = true;
+      terminal = "tmux-256color";
       extraConfig = ''
+	set-option -g xterm-keys on
 	set -s escape-time 0
       '';
+      plugins = with pkgs; [
+	tmuxPlugins.better-mouse-mode
+      ];
     };
 
     jq.enable = true;
@@ -46,6 +53,7 @@
       enableAutosuggestions = true;
 
       initExtra = ''
+      	export TERM=tmux-256color
         calc() {
           local input=$1
           local result=$(python -c "print($input)")
@@ -54,6 +62,7 @@
       '';
       shellAliases = {
         ll = "ls -la";
+        activate = "source ./venv/bin/activate";
         update = "sudo nixos-rebuild switch --flake /etc/nixos#pc";
 	deleteold = "sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system";
         #vim = "sudo nvim";

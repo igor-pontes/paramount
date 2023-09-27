@@ -12,7 +12,8 @@ local function font_with_fallback(name, params)
 	return wezterm.font_with_fallback(names, params)
 end
 
-local font_name = "AestheticIosevka Nerd Font Mono"
+-- local font_name = "AestheticIosevka Nerd Font Mono"
+local font_name = "Iosevka"
 
 return {
 	-- OpenGL for GPU acceleration, Software for CPU
@@ -27,15 +28,20 @@ return {
 		},
 		{
 			italic = true,
-			intensity = "Bold",
-			font = font_with_fallback(font_name, { italic = true, bold = true }),
+			-- intensity = "Bold",
+			intensity = "Normal",
+			-- font = font_with_fallback(font_name, { italic = true, bold = true }),
+			font = font_with_fallback(font_name, { italic = true, weight = 300, stretch="Normal" }),
 		},
 		{
-			intensity = "Bold",
-			font = font_with_fallback(font_name, { bold = true }),
+			-- intensity = "Bold",
+			intensity = "Normal",
+			-- font = font_with_fallback(font_name, { bold = true }),
+			font = font_with_fallback(font_name, { weight = 300 }),
 		},
 	},
 	warn_about_missing_glyphs = false,
+	-- font_size = 17,
 	font_size = 15,
 	line_height = 1.0,
 
