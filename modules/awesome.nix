@@ -1,6 +1,5 @@
-{ pkgs, lib, stdenv, ... }:
+{ pkgs, pkgs-unstable, lib, stdenv, ... }:
 {
-  services.picom.enable = true;
   services.acpid.enable = true;
   services.upower.enable = true;
   #hardware.bluetooth.enable = true;
@@ -97,8 +96,8 @@
     alsa-utils
     ffmpeg
     # xfce.xfce4-power-manager
-    #neovim
     sysstat
+    pkgs-unstable.glibc
     xorg.xinput
     materia-theme
     colloid-icon-theme

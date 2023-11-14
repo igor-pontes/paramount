@@ -1,6 +1,10 @@
 { config, pkgs, pkgs-unstable, ... }:
-
-{
+let 
+  #openrgb-rules = builtins.fetchurl {
+  #  url = "https://openrgb.org/releases/release_0.9/60-openrgb.rules";
+  #  sha256 = "sha256:0f5bmz0q8gs26mhy4m55gvbvcyvd7c0bf92aal4dsyg9n7lyq6xp";
+  #};
+in {
   imports =
     [
       ../../modules/system.nix
@@ -8,6 +12,7 @@
       ./hardware-configuration.nix
     ];
 
+  #services.udev.extraRules = builtins.readFile openrgb-rules;
   environment.variables.EDITOR = "nvim";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -16,6 +21,9 @@
 
   networking.networkmanager.enable = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-24.8.6"
+  ];
   programs = {
     steam = {
       enable = true;

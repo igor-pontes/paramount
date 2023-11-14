@@ -12,6 +12,8 @@
     socat
     git
     lm_sensors
+    tcpdump
+    ngrep
     neofetch
     #nnn
   ];

@@ -12,9 +12,13 @@
     gcc
     unzip
     virt-manager
+    coq
+    coqPackages.coqide
     conda
     #microsoft-edge
+    libreoffice
     htop
+    octave
     ripgrep
     fzf
     gparted

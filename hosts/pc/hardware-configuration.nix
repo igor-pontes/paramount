@@ -20,7 +20,7 @@
     };
     kernelPackages =  pkgs-unstable.linuxKernel.packageAliases.linux_default;
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-    initrd.kernelModules = [ "kvm-amd" ];
+    initrd.kernelModules = [ "kvm-amd" "i2c-dev" "i2c-piix4"];
     kernelModules = [ 
       #"vfio_pci" 
       #"vfio" 

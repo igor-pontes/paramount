@@ -143,7 +143,7 @@ awful.keyboard.append_global_keybindings({
 	--- Hotkeys
 	--- ~~~~~~~
 	--- Music player
-	awful.key({ mod }, "grave", function()
+	awful.key({ mod }, "'", function()
 		awful.spawn.with_shell(apps.default.music_player)
 	end, { description = "open music client", group = "hotkeys" }),
 

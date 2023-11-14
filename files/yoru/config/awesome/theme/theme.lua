@@ -156,6 +156,9 @@ theme.music_accent = theme.lighter_black
 --- ░█░█░░█░░░░█▀▀░█░░░█▀▀░█░█░█▀▀░█░█░░█░░▀▀█
 --- ░▀▀▀░▀▀▀░░░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░▀░░▀▀▀
 
+--theme.flash_focus_start_opacity = 0.8
+--theme.flash_focus_step = 0.01
+
 --- Wallpapers
 theme.wallpaper = gears.surface.load_uncached(gfs.get_configuration_dir() .. "theme/assets/mountains.jpg")
 --- theme.wallpaper = gears.surface.load_uncached(gfs.get_configuration_dir() .. "theme/assets/yoru-dots.png")
@@ -186,7 +189,7 @@ theme.icon_theme = "WhiteSur-dark"
 theme.border_width = 0
 theme.oof_border_width = 0
 theme.border_color_marked = theme.titlebar_bg
-theme.border_color_active = theme.titlebar_bg
+theme.border_color_active = theme.color4
 theme.border_color_normal = theme.titlebar_bg
 theme.border_color_new = theme.titlebar_bg
 theme.border_color_urgent = theme.titlebar_bg
