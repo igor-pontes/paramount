@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs-unstable, pkgs, config, ... }:
 #let microsoft-edge = pkgs.microsoft-edge.overrideAttrs (old: {
 #  src = pkgs.fetchurl {
 #    url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_116.0.1938.62-1_amd64.deb";
@@ -9,6 +9,10 @@
 {
   home.packages = with pkgs; [
     zip
+    docker
+    openvpn
+
+    blender
     gcc
     unzip
     virt-manager
@@ -22,7 +26,6 @@
     ripgrep
     fzf
     gparted
-    authy
     libnotify
     xdg-utils
     krita
@@ -31,7 +34,7 @@
     discord
     gnome.gucharmap
     python312
-  ];
+  ] ++ [ pkgs-unstable.authy ];
 
   programs = {
     
@@ -57,10 +60,9 @@
       enableAutosuggestions = true;
 
       initExtra = ''
-      	export TERM=tmux-256color
         calc() {
           local input=$1
-          local result=$(python -c "print($input)")
+          local result=$(python -c "from math import *;print($input)")
           echo "$result"
         }
       '';
@@ -69,7 +71,6 @@
         activate = "source ./venv/bin/activate";
         update = "sudo nixos-rebuild switch --flake /etc/nixos#pc";
 	deleteold = "sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system";
-        #vim = "sudo nvim";
       };
       history = {
         size = 10000;
@@ -77,10 +78,12 @@
       };
       oh-my-zsh = {
         enable = true;
+	custom = "$HOME/.custom_zsh";
 	# So, that once you add a plugin in the array and restart iTerm2, 
 	# all that Oh-My-ZSH needs to do is to fetch that already installed plugin from the plugin folder and give you a *seeming less experience.
         plugins = [ "git" "sudo" "copyfile" "copybuffer" "dirhistory" "history" ];
-        theme = "alanpeabody";
+        #theme = "alanpeabody";
+        theme = "paramount";
       };
     };
   };

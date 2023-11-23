@@ -34,7 +34,7 @@
 #in
 {
   home.file.".config/" = { 
-    source = ../../files/yoru/config;
+    source = ../../files/config;
     recursive = true;
   };
 
@@ -68,14 +68,19 @@
     recursive = true;
   };
 
-  home.file.".Xresources".source = ../../files/yoru/misc/home/.Xresources;
+  home.file.".Xresources".source = ../../files/misc/home/.Xresources;
 
-  home.file.".xinitrc".source = ../../files/yoru/misc/home/.xinitrc;
+  home.file.".xinitrc".source = ../../files/misc/home/.xinitrc;
 
-  home.file.".zprofile".source = ../../files/yoru/misc/home/.zprofile;
+  home.file.".zprofile".source = ../../files/misc/home/.zprofile;
+
+  home.file.".custom_zsh" = {
+    source = ../../files/misc/home/.custom_zsh; 
+    recursive = true;
+  };
 
   home.file.".local/share/fonts" = {
-    source = ../../files/yoru/misc/fonts; 
+    source = ../../files/misc/fonts; 
     recursive = true;
   };
 

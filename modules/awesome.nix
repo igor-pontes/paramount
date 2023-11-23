@@ -79,6 +79,7 @@
     xkbVariant = "";
     xautolock.enable = true;
   };
+  
   environment.systemPackages = with pkgs; [
     xclip
     mpv
@@ -86,7 +87,7 @@
     mpc-cli
     xfce.thunar
     xbindkeys
-    wezterm
+    #wezterm
     xdg-desktop-portal
     networkmanager
     lxappearance
@@ -99,8 +100,8 @@
     sysstat
     pkgs-unstable.glibc
     xorg.xinput
-    materia-theme
-    colloid-icon-theme
+    (materia-theme.overrideAttrs (_: _: { src = fetchFromGitHub { owner = "fafuja"; repo = "materia-theme"; rev = "7e9ca315a12ce38f89c19a97a12000d9ee5141dd"; sha256 = "sha256-icTEgJdfAeIjngXgcxiJB9aiW+LHgIFkRbiBh4b//7I="; }; nativeBuildInputs = [ pkgs-unstable.meson pkgs-unstable.ninja pkgs-unstable.sassc pkgs.dart-sass ]; }))
+    (colloid-icon-theme.override { schemeVariants = [ "dracula" ]; colorVariants = ["purple"]; })
   ];
   # thunar file manager(part of xfce) related options
   services.gvfs.enable = true; # Mount, trash, and other functionalities

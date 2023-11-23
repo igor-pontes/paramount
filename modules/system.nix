@@ -6,6 +6,9 @@
   
   environment.systemPackages = with pkgs; [
     wget
+    file
+    man-pages
+    man-pages-posix
     pciutils
     cifs-utils
     curl
@@ -13,18 +16,23 @@
     git
     lm_sensors
     tcpdump
+    virt-manager
     ngrep
     neofetch
     #nnn
   ];
+
+  documentation.dev.enable = true;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
-  #virtualisation = {
-  #  libvirtd = {
-  #    enable = true;
-  #    qemu.ovmf.enable = true;
-  #  };
-  #};
+
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu.ovmf.enable = true;
+    };
+  };
+
   security.rtkit.enable = true; 
   sound.enable = true;
   security.polkit.enable = true;

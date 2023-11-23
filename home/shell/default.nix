@@ -18,7 +18,8 @@ in {
     # set default applications
     EDITOR = "nvim";
     BROWSER = "firefox";
-    TERMINAL = "wezterm";
+    #TERMINAL = "wezterm";
+    TERMINAL = "alacritty";
 
     # enable scrolling in git diff
     DELTA_PAGER = "less -R";

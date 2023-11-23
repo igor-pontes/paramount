@@ -1,0 +1,49 @@
+window:
+  opacity: 1.0
+  dynamic_padding: true
+  padding:
+    x: 5
+    y: 0
+
+font:
+  size: 14
+  offset:
+    y: 1
+  normal:
+    family: "Apple Color Emoji"
+    family: "azuki_font"
+    family: "AestheticIosevka Nerd Font Mono"
+    style: "Regular"
+
+scrolling:
+  history: 10000
+
+colors:
+  primary:
+    background: '0x121212'
+    foreground: '0xF1F1F1'
+
+    cursor:
+      text: '0x666666'
+      cursor: '0xFFFFFF'
+
+    normal:
+      black: '0x000000'
+      red: '0xC20814'
+      green: '0x10A778'
+      yellow: '0xA89C14'
+      magenta: '0xa790d5'
+      blue: '0x666666'
+      cyan: '0xA8A8A8'
+      white: '0xC7C7C7'
+
+    bright:
+      black: '0x262626'
+      red: '0xE32733'
+      green: '0x5FD7A7'
+      yellow: '0xffff87'
+      magenta: '0x9b72cf'
+      blue: '0x4e4e4e'
+      cyan: '0x767676'
+      white: '0xFFFFFF'
+

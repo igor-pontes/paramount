@@ -6,8 +6,8 @@ let
     src = pkgs-unstable.fetchFromGitHub {
       owner = "fafuja";
       repo = "vim-colors-paramount";
-      rev = "6372d70e629a7485b262ec37437cad45a176acfc";
-      sha256 = "sha256-5gH3Ni37Kq0St6AFsui1lGPuYKVzfSZma+HCtxJjvOM=";
+      rev = "2cccdc978c9c68b597883914699fb6fecab7c1b8";
+      sha256 = "sha256-xJvCsorwpYPW/UmQEvH4unuY3MSRriK65tSj2V7xEwU=";
     };
   };
 in {
