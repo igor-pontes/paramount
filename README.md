@@ -1,5 +1,5 @@
 # Paramount Theme
-![image](https://github.com/fafuja/nixconfig/assets/46684536/84c692c9-310b-47f4-b10c-32c27d342221)
+![image](https://github.com/fafuja/paramount-theme/assets/46684536/dce07d81-afcd-4f93-bb7a-82edf7f5dbe6)
  - Window Manager: AwesomeWM
  - Awesome Theme: Paramount
  - Cursor Theme: Colloid
@@ -8,4 +8,3 @@
  - Terminal: Alacritty
 ## TODO
  - Notification center
- - Custom systray
