@@ -1,6 +1,6 @@
 # Paramount Theme
  - Window Manager: AwesomeWM
- - Awesome Theme: Custom theme
+ - Awesome Theme: Paramount
  - Cursor Theme: Colloid
  - GTK Theme: Material
  - Icon Theme: Colloid
