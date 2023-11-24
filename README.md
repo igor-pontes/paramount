@@ -1,4 +1,4 @@
-## Nix config files
+# Paramount Theme
  - Window Manager: AwesomeWM
  - Awesome Theme: Custom theme
  - Cursor Theme: Colloid
@@ -6,4 +6,4 @@
  - Icon Theme: Colloid
  - Terminal: Alacritty
 
-![image](https://github.com/fafuja/nixconfig/assets/46684536/6b628c5e-69e1-4eff-ba35-e3e6055675d5)
+![image](https://github.com/fafuja/nixconfig/assets/46684536/84c692c9-310b-47f4-b10c-32c27d342221)
