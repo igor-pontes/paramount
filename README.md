@@ -8,3 +8,4 @@
  - Terminal: Alacritty
 ## TODO
  - Notification center
+ - Custom systray
