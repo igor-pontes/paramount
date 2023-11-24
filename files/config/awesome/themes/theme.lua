@@ -23,6 +23,9 @@ theme.transparent = "#00000000"
 theme.background = "#121212FF"
 theme.lighter_black = "#4E4E4E"
 
+-- Systray
+theme.systray_icon_spacing = dpi(10)
+
 --- Black
 theme.color0 = "#232526"
 theme.color8 = "#2c2e2f"
@@ -62,8 +65,9 @@ theme.default_dir                               = require("awful.util").get_them
 theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/icons"
 theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/wall.png"
 theme.font                                      = "AestheticIosevka Bold 10"
+theme.font_light                                = "AestheticIosevka Regular 10"
 theme.taglist_font                              = "AestheticIosevka Italic Regular 8"
-theme.fg_normal                                 = "#FFFFFF"
+theme.fg_normal                                 = "#A0A0A0"
 theme.fg_focus                                  = "#A790D5"
 theme.bg_focus                                  = "#303030"
 theme.bg_normal                                 = "#242424"
@@ -148,26 +152,33 @@ local accent   = "#A790D5"
 local active_tag   = "#a0a0a0"
 local dim_tag   = "#505050"
 local space3 = markup.font("Roboto 3", "   ")
+local space2 = markup.font("Roboto 3", "  ")
 local space = wibox.widget.textbox(markup.font("Roboto 8", "   "))
 local space1 = wibox.widget.textbox(markup.font("Roboto 3", "  "))
 
 -- Clock
-local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%H:%M"))
-mytextclock.font = theme.font
+local mytextclock = wibox.widget.textclock(markup("#A0A0A0", space3 .. space2 .. "%H:%M"))
+mytextclock.font = theme.font_light
 local clock_icon = wibox.widget.textbox(markup.font(icomoon, ""))
 local clockbg = wibox.container.background(mytextclock, theme.bg_focus, gears.shape.rectangle)
 local clockwidget = wibox.container.margin(clockbg, dpi(0), dpi(1), dpi(5), dpi(5))
 
 -- Calendar
-local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#FFFFFF", space3 .. "%d %b" .. markup.font("Roboto 5", "")))
+--local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#A0A0A0", space3 .. "%d %b" .. markup.font("Roboto 5", "")))
+local mytextcalendar = wibox.widget.textclock(string.format(
+	"<span text-transform='uppercase' font='%s' foreground='%s'>%s</span>", 
+	theme.font_light, 
+	"#A0A0A0", 
+	space3 .. space2 .. "%d %b" .. markup.font("Roboto 5", "")
+))
 local calendar_icon = wibox.widget.textbox(markup.font(icomoon, ""))
 theme.cal = lain.widget.cal({
     attach_to = { mytextcalendar },
     icons = "",
     notification_preset = {
-        fg = "#FFFFFF",
+        fg = "#A0A0A0",
         bg = theme.bg_normal,
-        font = theme.font
+        font = theme.font_light
     }
 })
 
@@ -271,9 +282,36 @@ local net = lain.widget.net({
     end
 })
 
+local font_icon = "Material Icons Round 15"
+local net_text = wibox.widget.textbox(markup.font(font_icon, ""))
+
+theme.network = helpers.network({ 
+	timeout = 2,
+	settings  = function()
+	if network_on then
+	  	if network_strength then
+	  		net_text:set_markup(markup.font(font_icon, ""))
+	  		return
+	  	end
+	  	if network_strength <= 20 then
+	  		net_text:set_markup(markup.font(font_icon, ""))
+	  	elseif network_strength <= 40 then
+	  		net_text:set_markup(markup.font(font_icon, ""))
+	  	elseif network_strength <= 60 then
+	  		net_text:set_markup(markup.font(font_icon, ""))
+	  	elseif network_strength <= 80 then
+	  		net_text:set_markup(markup.font(font_icon, ""))
+	  	else
+	  		net_text:set_markup(markup.font(font_icon, ""))
+	  	end
+	  else
+	  	net_text:set_markup(markup.font(font_icon, ""))
+	  end
+	end
+})
 -- CPU
 --
-local cpu_icon = wibox.widget.textbox(markup.font(icomoon, "") .. space3)
+local cpu_icon = wibox.widget.textbox(markup.font(icomoon, "") .. space3 .. markup.font(theme.font_light, "CPU") .. space3)
 
 local cputemp = lain.widget.temp({
   timeout = 5,
@@ -286,7 +324,7 @@ local cputemp = lain.widget.temp({
 
 -- GPU
 --local gpu_icon = wibox.widget.imagebox(theme.gpu)
-local gpu_icon = wibox.widget.textbox(markup.font(icomoon, "") .. space3)
+local gpu_icon = wibox.widget.textbox(markup.font(icomoon, "") .. space3 .. markup.font(theme.font_light, "GPU") .. space3)
 local gputemp = helpers.gputemp({
   timeout = 5,
   settings = function()
@@ -439,6 +477,68 @@ function theme.at_screen_connect(s)
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
 
+    -- Systray
+    local function system_tray()
+      local mysystray = wibox.widget.systray()
+      mysystray.base_size = dpi(15)
+      
+      local widget = wibox.widget({
+      	widget = wibox.container.constraint,
+      	strategy = "max",
+      	width = dpi(0),
+      	{
+      		widget = wibox.container.margin,
+      		margins = dpi(8),
+      		mysystray,
+      	},
+      })
+      
+      --local system_tray_animation = animation:new({
+      --	easing = animation.easing.linear,
+      --	duration = 0.125,
+      --	update = function(self, pos)
+      --		widget.width = pos
+      --	end,
+      --})
+      
+      --local arrow = wbutton.text.state({
+      --	text_normal_bg = accent,
+      --	normal_bg = "#303030",
+      --	font = "Material Icons " .. "Round ",
+      --	size = 18,
+      --	text = "",
+      --	on_turn_on = function(self)
+      --		--system_tray_animation:set(400)
+      --  	widget.width = 400
+      --		self:set_text("")
+      --	end,
+      --	on_turn_off = function(self)
+      --		--system_tray_animation:set(0)
+      --  	widget.width = 0
+      --		self:set_text("")
+      --	end,
+      --})
+      local arrow = wibox.widget.textbox(markup.font("Material Icons Round 12", ""))
+      arrow.is_open = false
+
+      arrow:connect_signal("button::press", function(_, _, _, _) 
+	      if arrow.is_open then
+              	widget.width = 0
+                arrow:set_markup(markup.font("Material Icons Round 12", ""))
+		arrow.is_open = false
+	      else
+              	widget.width = 400
+	        arrow:set_markup(markup.font("Material Icons Round 12", ""))
+		arrow.is_open = true
+	      end
+
+      end)
+      return wibox.widget({
+      	layout = wibox.layout.fixed.horizontal,
+      	arrow,
+      	widget,
+      })
+    end
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(32) })
 
@@ -473,14 +573,20 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             --wibox.widget.systray(),
+	    separator,
+	    system_tray(),
+	    space1,
+	    space1,
+	    space1,
 	    {
 	      {
 		{
 		  layout = wibox.layout.fixed.horizontal,
 		  space,
-                  netdown_icon,
-		  net,
-                  netup_icon,
+		  net_text,
+                  --netdown_icon,
+		  --net,
+                  --netup_icon,
 		  separator,
                   gpu_icon,
                   gputemp,
@@ -521,34 +627,6 @@ function theme.at_screen_connect(s)
 	      right = 5,
 	      widget = wibox.container.margin,
 	    },
-            --spr_bottom_right,
-            --netdown_icon,
-            --networkwidget,
-            --netup_icon,
-            --bottom_bar,
-            --gpu_icon,
-            --gpuwidget,
-	    --tempwidget,
-            --bottom_bar,
-            --cpu_icon,
-            --cpuwidget,
-	    --tempwidget,
-            --bottom_bar,
-            --calendar_icon,
-            --calendarwidget,
-            --bottom_bar,
-            --clock_icon,
-            --clockwidget,
-            --prev_icon,
-            --next_icon,
-            --stop_icon,
-            --play_pause_icon,
-            --bar,
-            --mpd_icon,
-            --bar,
-            --spr_very_small,
-            --volumewidget,
-            --spr_left,
         },
     }
 end

@@ -7,4 +7,5 @@ return {
 	ui = require(... .. ".ui"),
 	gputemp = require(... .. ".gputemp"),
 	playerctl = require(... .. ".playerctl"),
+	network = require(... .. ".network"),
 }
