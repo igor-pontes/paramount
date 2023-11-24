@@ -38,7 +38,7 @@ visualizer_sync_interval = "30"
 visualizer_type = "ellipse"
 visualizer_fps = "60"
 visualizer_look = ●▮
-visualizer_color = "33,39,63,75,81,99,117,153,189"
+visualizer_color = "141,254,250,248,246,243,241,239,237,235"
 
 # PROGRESS BAR
 # ---
