@@ -59,8 +59,8 @@ theme.color15 = "#f2f4f5"
 --theme.flash_focus_step = 0.02
 
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
-theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/holo/icons"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/holo/wall.png"
+theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/icons"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/wall.png"
 theme.font                                      = "AestheticIosevka Bold 10"
 theme.taglist_font                              = "AestheticIosevka Italic Regular 8"
 theme.fg_normal                                 = "#FFFFFF"
@@ -140,49 +140,62 @@ theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/
 
 theme.musicplr = string.format("%s -e ncmpcpp", awful.util.terminal)
 
+local icomoon = "icomoon 10"
+local icomoon_larger = "icomoon 12"
 local markup = lain.util.markup
-local blue   = "#A790D5"
-local space3 = markup.font("Roboto 3", " ")
+--local accent   = "#9B72CF"
+local accent   = "#A790D5"
+local active_tag   = "#a0a0a0"
+local dim_tag   = "#505050"
+local space3 = markup.font("Roboto 3", "   ")
+local space = wibox.widget.textbox(markup.font("Roboto 8", "   "))
+local space1 = wibox.widget.textbox(markup.font("Roboto 3", "  "))
 
 -- Clock
-local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%H:%M   " .. markup.font("Roboto 4", " ")))
+local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%H:%M"))
 mytextclock.font = theme.font
-local clock_icon = wibox.widget.imagebox(theme.clock)
+local clock_icon = wibox.widget.textbox(markup.font(icomoon, ""))
 local clockbg = wibox.container.background(mytextclock, theme.bg_focus, gears.shape.rectangle)
-local clockwidget = wibox.container.margin(clockbg, dpi(0), dpi(3), dpi(5), dpi(5))
+local clockwidget = wibox.container.margin(clockbg, dpi(0), dpi(1), dpi(5), dpi(5))
 
 -- Calendar
-local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#FFFFFF", space3 .. "%d %b " .. markup.font("Roboto 5", " ")))
-local calendar_icon = wibox.widget.imagebox(theme.calendar)
-local calbg = wibox.container.background(mytextcalendar, theme.bg_focus, gears.shape.rectangle)
-local calendarwidget = wibox.container.margin(calbg, dpi(0), dpi(0), dpi(5), dpi(5))
+local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#FFFFFF", space3 .. "%d %b" .. markup.font("Roboto 5", "")))
+local calendar_icon = wibox.widget.textbox(markup.font(icomoon, ""))
 theme.cal = lain.widget.cal({
     attach_to = { mytextcalendar },
+    icons = "",
     notification_preset = {
         fg = "#FFFFFF",
         bg = theme.bg_normal,
-        font = "Monospace 10"
+        font = theme.font
     }
 })
 
--- MPD
-local mpd_icon = awful.widget.launcher({ image = theme.mpdl, command = theme.musicplr })
-local prev_icon = wibox.widget.imagebox(theme.prev)
-local next_icon = wibox.widget.imagebox(theme.nex)
-local stop_icon = wibox.widget.imagebox(theme.stop)
-local pause_icon = wibox.widget.imagebox(theme.pause)
-local play_pause_icon = wibox.widget.imagebox(theme.play)
+--local separator = wibox.widget.textbox(markup.fontfg("#3A3A3A", "︱"))
+--local separator = wibox.widget.textbox(space3 .. markup.fontfg("monospace 8", "#3A3A3A", "┃") .. space3)
+local separator = wibox.widget.textbox(space3 .. markup.fontfg("monospace 8", "#4E4E4E", "🭲") .. space3)
 
+-- MPD
+local mpd_icon = wibox.widget.textbox(markup.font(icomoon, ""))
+mpd_icon:connect_signal("button::press", function(_, _, _, _) 
+	awful.spawn.easy_async_with_shell(theme.musicplr, function() end)
+end)
+--local mpd_icon = awful.widget.launcher({ image = theme.mpdl, command = theme.musicplr })
+local prev_icon = wibox.widget.textbox(markup.font(icomoon_larger, " "))
+local next_icon = wibox.widget.textbox(markup.font(icomoon_larger, " "))
+local stop_icon = wibox.widget.textbox(markup.font(icomoon_larger, " "))
+local pause_icon = wibox.widget.textbox(markup.font(icomoon_larger, ""))
+local play_pause_icon = wibox.widget.textbox(markup.font(icomoon_larger, ""))
+--
 theme.mpd = helpers.playerctl({
     timeout = 0.1,
     settings = function ()
-	gears.debug.print_error(playerctl_now.state)
         if playerctl_now.state == "play" then
-            play_pause_icon:set_image(theme.pause)
+            play_pause_icon:set_markup(markup.font(icomoon_larger, ""))
         elseif playerctl_now.state == "pause" then
-            play_pause_icon:set_image(theme.play)
+            play_pause_icon:set_markup(markup.font(icomoon_larger, ""))
         else
-            play_pause_icon:set_image(theme.play)
+            play_pause_icon:set_markup(markup.font(icomoon_larger, ""))
         end
     end
 })
@@ -204,7 +217,6 @@ function ()
 end)))
 stop_icon:buttons(my_table.join(awful.button({}, 1,
 function ()
-    play_pause_icon:set_image(theme.play)
     os.execute("playerctl stop")
     theme.mpd.update()
 end)))
@@ -239,31 +251,31 @@ theme.volume = lain.widget.alsabar({
     },
 })
 theme.volume.bar.paddings = dpi(0)
-theme.volume.bar.margins = dpi(5)
+theme.volume.bar.margins = dpi(4)
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
 volumewidget = wibox.container.margin(volumewidget, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- Temp text
-local temp_text = wibox.widget.textbox(markup.font(theme.font,"°C "))
-local tempbg = wibox.container.background(temp_text, theme.bg_focus, gears.shape.rectangle)
-local tempwidget = wibox.container.margin(tempbg, dpi(0), dpi(0), dpi(5), dpi(5))
+local temp_text = wibox.widget.textbox(markup.font(theme.font, "°C"))
 
 -- Net
-local netdown_icon = wibox.widget.imagebox(theme.net_down)
-local netup_icon = wibox.widget.imagebox(theme.net_up)
+local netdown_icon = wibox.widget.textbox(markup.font("icomoon 15", ""))
+local netup_icon = wibox.widget.textbox(markup.font("icomoon 15", ""))
+
+--  
+--local net_icon = wibox.widget.textbox(markup.font("icomoon 15", ""))
+
 local net = lain.widget.net({
     settings = function()
-        widget:set_markup(markup.font("Roboto 1", " ") .. markup.font(theme.font, net_now.received .. " - "
-                          .. net_now.sent) .. markup.font("Roboto 2", " "))
+        widget:set_markup(markup.font("Roboto 8", "  ") .. markup.font(theme.font, net_now.received .. " - " .. net_now.sent .. markup.font("Roboto 8", "  ")))
     end
 })
-local netbg = wibox.container.background(net.widget, theme.bg_focus, gears.shape.rectangle)
-local networkwidget = wibox.container.margin(netbg, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- CPU
-local cpu_icon = wibox.widget.imagebox(theme.cpu)
+--
+local cpu_icon = wibox.widget.textbox(markup.font(icomoon, "") .. space3)
 
-local cpu = lain.widget.temp({
+local cputemp = lain.widget.temp({
   timeout = 5,
   settings = function()
 	awful.spawn.easy_async_with_shell("cat /sys/class/hwmon/hwmon1/temp1_input", function(out)
@@ -271,19 +283,16 @@ local cpu = lain.widget.temp({
 	end)
   end
 })
-local cpubg = wibox.container.background(cpu.widget, theme.bg_focus, gears.shape.rectangle)
-local cpuwidget = wibox.container.margin(cpubg, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- GPU
-local gpu_icon = wibox.widget.imagebox(theme.gpu)
-local gpu = helpers.gputemp({
+--local gpu_icon = wibox.widget.imagebox(theme.gpu)
+local gpu_icon = wibox.widget.textbox(markup.font(icomoon, "") .. space3)
+local gputemp = helpers.gputemp({
   timeout = 5,
   settings = function()
 	widget:set_markup(space3 .. markup.font(theme.font, gputemp_now) .. space3)
   end
 })
-local gpubg = wibox.container.background(gpu.widget, theme.bg_focus, gears.shape.rectangle)
-local gpuwidget = wibox.container.margin(gpubg, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- Separators
 local first = wibox.widget.textbox('<span font="Roboto 7"> </span>')
@@ -311,7 +320,8 @@ function theme.at_screen_connect(s)
     if type(wallpaper) == "function" then
         wallpaper = wallpaper(s)
     end
-    gears.wallpaper.set("#121212")
+    --gears.wallpaper.set("#121212")
+    gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[2])
@@ -327,11 +337,104 @@ function theme.at_screen_connect(s)
                            awful.button({}, 3, function () awful.layout.inc(-1) end),
                            awful.button({}, 4, function () awful.layout.inc( 1) end),
                            awful.button({}, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
 
-    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    s.mytag = wibox.container.margin(mytaglistcont, dpi(0), dpi(0), dpi(5), dpi(5))
+    -- Create a taglist widget
+    --s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
+    local taglist_buttons = gears.table.join(
+      awful.button({}, 1, function(t)
+      	t:view_only()
+      end),
+      awful.button({ modkey }, 1, function(t)
+      	if client.focus then
+      		client.focus:move_to_tag(t)
+      	end
+      end),
+      awful.button({}, 3, awful.tag.viewtoggle),
+      awful.button({ modkey }, 3, function(t)
+      	if client.focus then
+      		client.focus:toggle_tag(t)
+      	end
+      end),
+      awful.button({}, 4, function(t)
+      	awful.tag.viewnext(t.screen)
+      end),
+      awful.button({}, 5, function(t)
+      	awful.tag.viewprev(t.screen)
+      end)
+    )
+
+
+    s.mytaglist = awful.widget.taglist({
+      screen = s,
+      filter = awful.widget.taglist.filter.all, 
+      layout = wibox.layout.fixed.horizontal,
+      widget_template = {
+        widget = wibox.container.margin,
+	margins = { top = dpi(10), bottom = dpi(10), left = dpi(6), right = dpi(6)},
+        forced_width = dpi(35),
+        forced_height = dpi(40),
+        create_callback = function(self, c3, _)
+        	local indicator = wibox.widget({
+        		widget = wibox.container.margin,
+        		--valign = "center",
+        		--halign = "left",
+        		{
+        			widget = wibox.container.background,
+        			shape = gears.shape.rounded_bar,
+        		},
+        	})
+
+        	--self.indicator_animation = animation:new({
+        	--	duration = 0.125,
+        	--	easing = animation.easing.linear,
+        	--	update = function(self, pos)
+        	--		indicator.children[1].forced_width = pos
+        	--	end,
+        	--})
+        
+        	self:set_widget(indicator)
+        
+        	if c3.selected then
+        		self.widget.children[1].bg = accent
+        		--self.indicator_animation:set(dpi(32))
+        	elseif #c3:clients() == 0 then
+        		self.widget.children[1].bg = dim_tag
+        		--self.indicator_animation:set(dpi(8))
+        	else
+        		self.widget.children[1].bg = active_tag
+        		--self.indicator_animation:set(dpi(16))
+        	end
+        
+        	--- Tag preview
+        	--self:connect_signal("mouse::enter", function()
+        	--	if #c3:clients() > 0 then
+        	--		awesome.emit_signal("bling::tag_preview::update", c3)
+        	--		awesome.emit_signal("bling::tag_preview::visibility", s, true)
+        	--	end
+        	--end)
+        
+        	--self:connect_signal("mouse::leave", function()
+        	--	awesome.emit_signal("bling::tag_preview::visibility", s, false)
+        	--end)
+        end,
+        update_callback = function(self, c3, _)
+        	if c3.selected then
+        		self.widget.children[1].bg = accent
+        		--self.indicator_animation:set(dpi(32))
+        	elseif #c3:clients() == 0 then
+        		self.widget.children[1].bg = dim_tag
+        		--self.indicator_animation:set(dpi(8))
+        	else
+        		self.widget.children[1].bg = active_tag
+        		--self.indicator_animation:set(dpi(16))
+        	end
+        end,
+        },
+	buttons = taglist_buttons,
+    })
+
+    --mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
+    --s.mytag = wibox.container.margin(mytaglistcont, dpi(0), dpi(0), dpi(5), dpi(5))
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
@@ -344,45 +447,108 @@ function theme.at_screen_connect(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            first,
-            s.mytag,
-            spr_small,
-            s.mylayoutbox,
-            spr_small,
+	    {
+	      {
+		{
+		  layout = wibox.layout.fixed.horizontal,
+		  space,
+    	          s.mytaglist,
+		  space,
+		},
+	        bg     = '#303030',
+                shape = function(cr, width, height)
+                    gears.shape.rounded_rect(cr, width, height, 2)
+                end,
+	        widget = wibox.container.background,
+              },
+	      top = 5,
+	      bottom = 5,
+	      left = 5,
+	      right = 1,
+	      widget = wibox.container.margin,
+	    },
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            spr_bottom_right,
-            netdown_icon,
-            networkwidget,
-            netup_icon,
-            bottom_bar,
-            gpu_icon,
-            gpuwidget,
-	    tempwidget,
-            bottom_bar,
-            cpu_icon,
-            cpuwidget,
-	    tempwidget,
-            bottom_bar,
-            calendar_icon,
-            calendarwidget,
-            bottom_bar,
-            clock_icon,
-            clockwidget,
-            prev_icon,
-            next_icon,
-            stop_icon,
-            play_pause_icon,
-            bar,
-            mpd_icon,
-            bar,
-            spr_very_small,
-            volumewidget,
-            spr_left,
+            --wibox.widget.systray(),
+	    {
+	      {
+		{
+		  layout = wibox.layout.fixed.horizontal,
+		  space,
+                  netdown_icon,
+		  net,
+                  netup_icon,
+		  separator,
+                  gpu_icon,
+                  gputemp,
+                  temp_text,
+		  separator,
+                  cpu_icon,
+                  cputemp,
+	          temp_text,
+		  separator,
+                  calendar_icon,
+                  mytextcalendar,
+		  separator,
+                  clock_icon,
+                  clockwidget,
+		  separator,
+                  prev_icon,
+                  next_icon,
+                  stop_icon,
+                  play_pause_icon,
+		  space1,
+		  separator,
+                  mpd_icon,
+		  separator,
+                  volumewidget,
+		  separator,
+                  s.mylayoutbox,
+		  space,
+		},
+	        bg     = '#303030',
+                shape = function(cr, width, height)
+                    gears.shape.rounded_rect(cr, width, height, 2)
+                end,
+	        widget = wibox.container.background,
+              },
+	      top = 5,
+	      bottom = 5,
+	      left = 1,
+	      right = 5,
+	      widget = wibox.container.margin,
+	    },
+            --spr_bottom_right,
+            --netdown_icon,
+            --networkwidget,
+            --netup_icon,
+            --bottom_bar,
+            --gpu_icon,
+            --gpuwidget,
+	    --tempwidget,
+            --bottom_bar,
+            --cpu_icon,
+            --cpuwidget,
+	    --tempwidget,
+            --bottom_bar,
+            --calendar_icon,
+            --calendarwidget,
+            --bottom_bar,
+            --clock_icon,
+            --clockwidget,
+            --prev_icon,
+            --next_icon,
+            --stop_icon,
+            --play_pause_icon,
+            --bar,
+            --mpd_icon,
+            --bar,
+            --spr_very_small,
+            --volumewidget,
+            --spr_left,
         },
     }
 end

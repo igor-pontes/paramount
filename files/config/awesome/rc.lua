@@ -382,9 +382,15 @@ globalkeys = mytable.join(
 		function() end
 	)
         end,
-        {description = "focus right", group = "hotkeys"}),
+        {description = "Toggle color temperature", group = "hotkeys"}),
 
     -- Layout manipulation
+    awful.key({ modkey, "Shift"   }, "space", function () 
+		    local s = awful.screen.focused()
+		    awful.layout.inc(1, s, awful.layout.layouts)    
+	    end,
+            {description = "Next layout", group = "client"}),
+
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
@@ -599,9 +605,9 @@ globalkeys = mytable.join(
               {description = "run browser", group = "launcher"}),
 
     awful.key({ modkey }, "d", function ()
-            os.execute(string.format("rofi -no-lazy-grab -show %s -modi drun -show-icons -theme %s",
-            'drun', config_dir.."conf/rofi.rasi"))
-        end,
+            os.execute(string.format("rofi -no-lazy-grab -show %s -modi %s -show-icons -theme %s",
+            'drun', 'drun', config_dir.."conf/rofi.rasi"))
+        end, 
         {description = "show rofi", group = "launcher"}),
     -- Prompt
     awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
