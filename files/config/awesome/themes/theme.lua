@@ -289,7 +289,7 @@ theme.network = helpers.network({
 	timeout = 2,
 	settings  = function()
 	if network_on then
-	  	if network_strength then
+	  	if network_strength == 0 then
 	  		net_text:set_markup(markup.font(font_icon, ""))
 	  		return
 	  	end

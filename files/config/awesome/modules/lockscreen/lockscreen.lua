@@ -28,8 +28,9 @@ lock_screen_box = wibox({ visible = false, ontop = true, type = "splash", screen
 awful.placement.maximize(lock_screen_box)
 
 --lock_screen_box.bg = beautiful.transparent
-lock_screen_box.bg = "#121212A0"
-lock_screen_box.fg = beautiful.white
+lock_screen_box.bg = "#121212C0"
+--lock_screen_box.fg = beautiful.white
+lock_screen_box.fg = "#A0A0A0FF"
 
 --- Add lockscreen to each screen
 awful.screen.connect_for_each_screen(function(s)
@@ -38,7 +39,7 @@ awful.screen.connect_for_each_screen(function(s)
 	else
 		s.mylockscreen = helpers.ui.screen_mask(
 			s,
-			"#12121240"
+			"#121212C0"
 		)
 	end
 end)
@@ -129,7 +130,7 @@ local function create_text_widget(index, w)
 	local text_widget = wibox.widget({
 		id = "t" .. index,
 		markup = w,
-		font = beautiful.font .. "Bold 24",
+		font = "AestheticIosevka Regular 24",
 		align = "center",
 		valign = "center",
 		forced_width = dpi(36),
@@ -144,7 +145,7 @@ end
 
 local var_count = 0
 for i, m in pairs(time_char) do
-	local text = helpers.ui.colorize_text(m, "#ffffff" .. "10")
+	local text = helpers.ui.colorize_text(m, "#A0A0A0" .. "10")
 
 	var_count = var_count + 1
 	local create_dummy_text = true
@@ -170,14 +171,14 @@ end
 local function activate_word(w)
 	for i, m in pairs(char_map[w]) do
 		local text = m.text
-		m.markup = helpers.ui.colorize_text(text, beautiful.white)
+		m.markup = helpers.ui.colorize_text(text, "#A0A0A0")
 	end
 end
 
 local function deactivate_word(w)
 	for i, m in pairs(char_map[w]) do
 		local text = m.text
-		m.markup = helpers.ui.colorize_text(text, "#ffffff" .. "10")
+		m.markup = helpers.ui.colorize_text(text, "#A0A0A0" .. "10")
 	end
 end
 

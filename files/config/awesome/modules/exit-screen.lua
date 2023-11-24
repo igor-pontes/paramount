@@ -11,7 +11,7 @@ lock_screen.init()
 --- ~~~~~~~~~~~~~~~~~~~~~~
 
 --- Icons
-local icon_font = "icomoon bold 45"
+local icon_font = "icomoon 45"
 local poweroff_text_icon = ""
 local reboot_text_icon = ""
 local suspend_text_icon = ""
@@ -67,7 +67,7 @@ local create_button = function(symbol, hover_color, text, command)
 		},
 		forced_height = button_size,
 		forced_width = button_size,
-		border_width = dpi(8),
+		border_width = dpi(5),
 		border_color = beautiful.lighter_black,
 		shape = helpers.ui.rrect(0),
 		bg = button_bg,
@@ -105,7 +105,7 @@ local create_exit_screen = function(s)
 		type = "splash",
 		visible = false,
 		ontop = true,
-		bg = beautiful.transparent,
+		bg = "#121212C0",
 		fg = beautiful.fg_normal,
 		height = s.geometry.height,
 		width = s.geometry.width,

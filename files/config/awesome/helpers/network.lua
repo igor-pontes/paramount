@@ -30,7 +30,6 @@ local function factory(args)
 		local getstrength = [[ awk '/^\s*w/ { print  int($3 * 100 / 70) }' /proc/net/wireless ]]
 		awful.spawn.easy_async_with_shell(getstrength, function(stdout)
 			if not tonumber(stdout) then
-				network_on = false
 				network_strength = 0
 				widget = net_stat.widget
 				settings()
