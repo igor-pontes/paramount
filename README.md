@@ -8,6 +8,9 @@
  - Icon Theme: Colloid
  - Terminal: Alacritty
 
+## TODO
+- Code refactoring (current code is a mess!)
+  
 ## Showcase
 - Notification & notification center
   
