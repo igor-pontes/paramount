@@ -288,14 +288,16 @@ globalkeys = mytable.join(
     end, { description = "decrease volume playerctl", group = "hotkeys" }),
     -- global volume
     awful.key({}, "XF86AudioRaiseVolume", function()
-            awful.spawn("amixer sset Master 5%+", false)
+	    os.execute("amixer -q set Master 5%+")
+            --awful.spawn("amixer sset Master 5%+", false)
             --awesome.emit_signal("widget::volume")
-            --awesome.emit_signal("module::volume_osd:show", true)
+            awesome.emit_signal("module::volume_osd:show", true)
     end, { description = "increase volume", group = "hotkeys" }),
     awful.key({}, "XF86AudioLowerVolume", function()
-            awful.spawn("amixer sset Master 5%-", false)
+	    os.execute("amixer -q set Master 5%-")
+            --awful.spawn("amixer sset Master 5%-", false)
             --awesome.emit_signal("widget::volume")
-            --awesome.emit_signal("module::volume_osd:show", true)
+            awesome.emit_signal("module::volume_osd:show", true)
     end, { description = "decrease volume", group = "hotkeys" }),
     awful.key({}, "XF86AudioMute", function()
             awful.spawn("amixer sset Master toggle", false)

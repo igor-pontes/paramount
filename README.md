@@ -27,3 +27,4 @@
 - Master and Playerctl volume control
   
 ![image](https://github.com/fafuja/paramount/assets/46684536/26dd1d7f-d8ee-4a28-8eb5-2d0c087e1a36)
+
