@@ -12,3 +12,6 @@
 ![image](https://github.com/fafuja/paramount/assets/46684536/ae10cb8f-2c11-4748-97a8-8876ca79cd5c)
 
 ![image](https://github.com/fafuja/paramount/assets/46684536/fbe9951d-320b-4b5c-acd1-9210f52c8e2d)
+
+![image](https://github.com/fafuja/paramount/assets/46684536/bb7ea147-297b-47d2-949b-ac2c7752ea28)
+
