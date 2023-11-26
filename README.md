@@ -1,5 +1,6 @@
 # Paramount Theme
 ![image](https://github.com/fafuja/paramount/assets/46684536/eb4713e5-8297-40ca-a1c1-67f0be81223c)
+
  - Window Manager: AwesomeWM
  - Awesome Theme: Paramount
  - Cursor Theme: Colloid
