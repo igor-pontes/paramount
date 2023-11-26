@@ -8,4 +8,7 @@ return {
 	gputemp = require(... .. ".gputemp"),
 	playerctl = require(... .. ".playerctl"),
 	network = require(... .. ".network"),
+	cal = require(... .. ".cal"),
+	notifs = require(... .. ".notifs"),
+	--widgets = require(... .. ".widgets"),
 }

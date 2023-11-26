@@ -180,6 +180,8 @@ awful.util.tasklist_buttons = mytable.join(
 beautiful.init(string.format("%s/.config/awesome/themes/theme.lua", os.getenv("HOME")))
 
 require("modules")
+require("notifications")
+require("panels")
 -- }}}
 
 -- {{{ Menu
@@ -273,15 +275,27 @@ root.buttons(mytable.join(
 
 globalkeys = mytable.join(
     -- Audio
+    -- playerctl volume
+    awful.key({"Shift"}, "XF86AudioRaiseVolume", function()
+            awful.spawn("playerctl volume 0.1+", false)
+            --awesome.emit_signal("widget::volume")
+            --awesome.emit_signal("module::volume_osd:show", true)
+    end, { description = "increase volume playerctl", group = "hotkeys" }),
+    awful.key({"Shift"}, "XF86AudioLowerVolume", function()
+            awful.spawn("playerctl volume 0.1-", false)
+            --awesome.emit_signal("widget::volume")
+            --awesome.emit_signal("module::volume_osd:show", true)
+    end, { description = "decrease volume playerctl", group = "hotkeys" }),
+    -- global volume
     awful.key({}, "XF86AudioRaiseVolume", function()
             awful.spawn("amixer sset Master 5%+", false)
-            awesome.emit_signal("widget::volume")
-            awesome.emit_signal("module::volume_osd:show", true)
+            --awesome.emit_signal("widget::volume")
+            --awesome.emit_signal("module::volume_osd:show", true)
     end, { description = "increase volume", group = "hotkeys" }),
     awful.key({}, "XF86AudioLowerVolume", function()
             awful.spawn("amixer sset Master 5%-", false)
-            awesome.emit_signal("widget::volume")
-            awesome.emit_signal("module::volume_osd:show", true)
+            --awesome.emit_signal("widget::volume")
+            --awesome.emit_signal("module::volume_osd:show", true)
     end, { description = "decrease volume", group = "hotkeys" }),
     awful.key({}, "XF86AudioMute", function()
             awful.spawn("amixer sset Master toggle", false)
@@ -298,8 +312,16 @@ globalkeys = mytable.join(
     end, { description = "next music", group = "hotkeys" }),
 
     --- Window switcher
-    awful.key({ altkey }, "Tab", function()
-            awesome.emit_signal("window_switcher::turn_on")
+    awful.key({ altkey }, "Tab", 
+        function ()
+            if cycle_prev then
+                awful.client.focus.history.previous()
+            else
+                awful.client.focus.byidx(-1)
+            end
+            if client.focus then
+                client.focus:raise()
+            end
     end),
 
     -- Destroy all notifications
@@ -401,18 +423,11 @@ globalkeys = mytable.join(
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
-    awful.key({ modkey,           }, "Tab",
+    awful.key({ altkey,           }, "Tab",
         function ()
-            if cycle_prev then
-                awful.client.focus.history.previous()
-            else
-                awful.client.focus.byidx(-1)
-            end
-            if client.focus then
-                client.focus:raise()
-            end
+		awesome.emit_signal("window_switcher::turn_on")
         end,
-        {description = "cycle with previous/go back", group = "client"}),
+        {description = "Switch window", group = "client"}),
 
     -- Number of columns
     awful.key({ modkey, altkey }, "k", function()

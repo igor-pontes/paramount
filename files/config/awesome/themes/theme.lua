@@ -23,6 +23,9 @@ theme.transparent = "#00000000"
 theme.background = "#121212FF"
 theme.lighter_black = "#4E4E4E"
 
+-- Notification
+theme.notification_spacing = dpi(4)
+
 -- Systray
 theme.systray_icon_spacing = dpi(10)
 
@@ -156,6 +159,25 @@ local space2 = markup.font("Roboto 3", "  ")
 local space = wibox.widget.textbox(markup.font("Roboto 8", "   "))
 local space1 = wibox.widget.textbox(markup.font("Roboto 3", "  "))
 
+-- Notifications
+local notifs = {}
+notifs.icon = wibox.widget.textbox(markup.font(theme.icon_font .. " Outlined 11", ""))
+helpers.ui.add_hover_cursor(notifs.icon, "hand1")
+notifs.status = false
+
+theme.notifs = helpers.notifs({
+    attach_to = { notifs.icon },
+})
+
+notifs.icon:connect_signal("button::press", function(_, _, _, _) 
+	notifs.status = not notifs.status
+	if notifs.status then
+		notifs.icon:set_markup(markup.font(theme.icon_font .. " Rounded 11", ""))
+	else
+		notifs.icon:set_markup(markup.font(theme.icon_font .. " Outlined 11", ""))
+	end
+end)
+
 -- Clock
 local mytextclock = wibox.widget.textclock(markup("#A0A0A0", space3 .. space2 .. "%H:%M"))
 mytextclock.font = theme.font_light
@@ -164,15 +186,14 @@ local clockbg = wibox.container.background(mytextclock, theme.bg_focus, gears.sh
 local clockwidget = wibox.container.margin(clockbg, dpi(0), dpi(1), dpi(5), dpi(5))
 
 -- Calendar
---local mytextcalendar = wibox.widget.textclock(markup.fontfg(theme.font, "#A0A0A0", space3 .. "%d %b" .. markup.font("Roboto 5", "")))
 local mytextcalendar = wibox.widget.textclock(string.format(
 	"<span text-transform='uppercase' font='%s' foreground='%s'>%s</span>", 
 	theme.font_light, 
 	"#A0A0A0", 
 	space3 .. space2 .. "%d %b" .. markup.font("Roboto 5", "")
 ))
-local calendar_icon = wibox.widget.textbox(markup.font(icomoon, ""))
-theme.cal = lain.widget.cal({
+local calendar_icon = wibox.widget.textbox(markup.font(theme.icon_font .. " 10", ""))
+theme.cal = helpers.cal({
     attach_to = { mytextcalendar },
     icons = "",
     notification_preset = {
@@ -262,7 +283,7 @@ theme.volume = lain.widget.alsabar({
     },
 })
 theme.volume.bar.paddings = dpi(0)
-theme.volume.bar.margins = dpi(4)
+theme.volume.bar.margins = dpi(5)
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
 volumewidget = wibox.container.margin(volumewidget, dpi(0), dpi(0), dpi(5), dpi(5))
 
@@ -584,9 +605,6 @@ function theme.at_screen_connect(s)
 		  layout = wibox.layout.fixed.horizontal,
 		  space,
 		  net_text,
-                  --netdown_icon,
-		  --net,
-                  --netup_icon,
 		  separator,
                   gpu_icon,
                   gputemp,
@@ -611,6 +629,8 @@ function theme.at_screen_connect(s)
                   mpd_icon,
 		  separator,
                   volumewidget,
+		  separator,
+		  notifs.icon,
 		  separator,
                   s.mylayoutbox,
 		  space,

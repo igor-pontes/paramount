@@ -62,11 +62,11 @@ local function draw_widget(mouse_keys)
 		filter = awful.widget.tasklist.filter.currenttags,
 		buttons = mouse_keys,
 		style = {
-			font = beautiful.font,
-			bg_normal = beautiful.black,
-			bg_focus = beautiful.lighter_black,
-			fg_normal = beautiful.white,
-			fg_focus = beautiful.accent,
+			font = beautiful.font_light,
+			bg_normal = "#30303000",
+			bg_focus = "#A0A0A0",
+			fg_normal = "#505050",
+			fg_focus = "#303030",
 			shape = gears.shape.rounded_rect,
 		},
 		layout = {
@@ -117,7 +117,7 @@ local function draw_widget(mouse_keys)
 			margins = dpi(15),
 			widget = wibox.container.margin,
 		},
-		bg = beautiful.black,
+		bg = "#303030f0",
 		shape = gears.shape.rounded_rect,
 		widget = wibox.container.background,
 	})
