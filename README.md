@@ -14,5 +14,5 @@
 ![image](https://github.com/fafuja/paramount/assets/46684536/fbe9951d-320b-4b5c-acd1-9210f52c8e2d)
 
 ![image](https://github.com/fafuja/paramount/assets/46684536/bb7ea147-297b-47d2-949b-ac2c7752ea28)
-
+- Master and Playerctl volume control
 ![image](https://github.com/fafuja/paramount/assets/46684536/26dd1d7f-d8ee-4a28-8eb5-2d0c087e1a36)
