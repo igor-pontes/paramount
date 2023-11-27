@@ -1,6 +1,6 @@
 # Paramount Theme
 
-##### Inspired by the "[paramount](https://github.com/owickstrom/vim-colors-paramount)" color scheme for Vim editor
+** Inspired by the "[paramount](https://github.com/owickstrom/vim-colors-paramount)" color scheme for Vim editor**
 
 ![image](https://github.com/fafuja/paramount/assets/46684536/efa9f2f4-0cd4-4b3f-b014-ab4de5dc9cf7)
 
