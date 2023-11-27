@@ -1,6 +1,7 @@
 # Paramount Theme
 
-**Inspired by "[Paramount](https://github.com/owickstrom/vim-colors-paramount)". A color scheme for Vim editor**
+**Inspired by "[Paramount](https://github.com/owickstrom/vim-colors-paramount)". A color scheme for Vim editor.**
+ > "Infused with the spirit of Vim's 'paramount' color scheme, our inspiration blossoms in a kaleidoscope of captivating shades." - Chatgpt
 
 ![image](https://github.com/fafuja/paramount/assets/46684536/efa9f2f4-0cd4-4b3f-b014-ab4de5dc9cf7)
 
