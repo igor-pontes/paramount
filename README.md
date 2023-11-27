@@ -14,11 +14,11 @@
 ## Showcase
 - Notification & notification center
   
-![image](https://github.com/fafuja/paramount/assets/46684536/ae10cb8f-2c11-4748-97a8-8876ca79cd5c)
+![image](https://github.com/fafuja/paramount/assets/46684536/61b7afbc-5d9e-4e61-8fce-edcfdded5d45)
 
 - Calendar widget (when hovering over date)
 
-![image](https://github.com/fafuja/paramount/assets/46684536/fbe9951d-320b-4b5c-acd1-9210f52c8e2d)
+![image](https://github.com/fafuja/paramount/assets/46684536/147c06fa-c563-471b-8553-ef4f567af7c2)
 
 - Master Volume popup
  
