@@ -42,42 +42,6 @@ return function(s)
 		widget = wibox.container.place,
 	})
 
-	--dismiss:connect_signal("button::release", function()
-	--	n:destroy(naughty.notification_closed_reason.dismissed_by_user)
-	--end)
-
-	--local actions = wibox.widget({
-	--	notification = n,
-	--	base_layout = wibox.widget({
-	--		spacing = dpi(3),
-	--		layout = wibox.layout.flex.horizontal,
-	--	}),
-	--	widget_template = {
-	--		{
-	--			{
-	--				{
-	--					id = "text_role",
-	--					font = beautiful.font_light,
-	--					widget = wibox.widget.textbox,
-	--				},
-	--				left = dpi(6),
-	--				right = dpi(6),
-	--				widget = wibox.container.margin,
-	--			},
-	--			widget = wibox.container.place,
-	--		},
-	--		bg = "#303030",
-	--		forced_height = dpi(25),
-	--		forced_width = dpi(70),
-	--		widget = wibox.container.background,
-	--	},
-	--	style = {
-	--		underline_normal = false,
-	--		underline_selected = true,
-	--	},
-	--	widget = naughty.list.actions,
-	--})
-
 	s.calendar = awful.popup({
 		type = "dock",
 		screen = s,
@@ -94,12 +58,8 @@ return function(s)
 		placement = function(w) 
 			awful.placement.top_right(
 				w,
-				{ honor_workarea = true, margins = { top = dpi(5), right = dpi(210) } }
+				{ honor_workarea = true, margins = { top = dpi(5), right = dpi(175) } }
 			)
-			--awful.placement.maximize_vertically(
-			--	w,
-			--	{ honor_workarea = true, margins = { top = dpi(2) } }
-			--)
 		end,
 		widget = {
 			{
@@ -108,10 +68,7 @@ return function(s)
 					{
 						{
 							layout = wibox.layout.align.horizontal,
-							--app_name,
 							{
-								--app_icon_n,
-								--space,
 								app_name,
 								layout = wibox.layout.align.horizontal,
 							},

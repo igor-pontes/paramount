@@ -28,4 +28,3 @@
   
 ![image](https://github.com/fafuja/paramount/assets/46684536/7f0e5fb2-01da-49e5-8dd6-3bf5e40b5dc7)
 
-

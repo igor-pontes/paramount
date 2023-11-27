@@ -6,11 +6,11 @@
 --local info_panel = require(... .. ".panels.info-panel")
 local calendar_panel = require(... .. ".calendar")
 local notif_panel = require(... .. ".notifications")
-local pctlvolume = require(... .. ".playerctlvolume")
+local volumepanel = require(... .. ".volumepanel")
 
 local awful = require("awful")
 awful.screen.connect_for_each_screen(function(s)
 	calendar_panel(s)
 	notif_panel(s)
-	pctlvolume(s)
+	volumepanel(s)
 end)

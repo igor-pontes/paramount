@@ -178,6 +178,44 @@ notifs.icon:connect_signal("button::press", function(_, _, _, _)
 	end
 end)
 
+-- Microphone
+local microphone = {}
+
+microphone.icon = wibox.widget.textbox(markup.font(theme.icon_font .. "Round 11", ""))
+microphone.status = true
+helpers.ui.add_hover_cursor(microphone.icon, "hand1")
+
+microphone.icon:connect_signal("button::press", function(_, _, _, _) 
+	microphone.status = not microphone.status
+	if microphone.status then
+		awful.spawn("amixer sset Capture cap", false)
+		microphone.icon:set_markup(markup.font(theme.icon_font .. " Round 11", ""))
+	else
+		awful.spawn("amixer sset Capture nocap", false)
+		microphone.icon:set_markup(markup.font(theme.icon_font .. " Round 11", ""))
+	end
+end)
+
+
+-- audio
+
+local audio_icon = wibox.widget.textbox(markup.font(theme.icon_font .. "Round 11", ""))
+helpers.ui.add_hover_cursor(audio_icon, "hand1")
+
+awesome.connect_signal("mastervolume::update", function()
+	awful.spawn.easy_async_with_shell(
+	"amixer get Master",
+	function(out)
+		local _, playback = string.match(out, "([%d]+)%%.*%[([%l]*)")
+		if playback == "off" then 
+			audio_icon:set_markup(markup.font(theme.icon_font .. "Round 11", ""))
+		else
+			audio_icon:set_markup(markup.font(theme.icon_font .. "Round 11", ""))
+		end
+	end)
+end)
+
+
 -- Clock
 local mytextclock = wibox.widget.textclock(markup("#A0A0A0", space3 .. space2 .. "%H:%M"))
 mytextclock.font = theme.font_light
@@ -209,6 +247,8 @@ local separator = wibox.widget.textbox(space3 .. markup.fontfg("monospace 8", "#
 
 -- MPD
 local mpd_icon = wibox.widget.textbox(markup.font(icomoon, ""))
+helpers.ui.add_hover_cursor(mpd_icon, "hand1")
+
 mpd_icon:connect_signal("button::press", function(_, _, _, _) 
 	awful.spawn.easy_async_with_shell(theme.musicplr, function() end)
 end)
@@ -270,20 +310,20 @@ local bat = lain.widget.bat({
     end
 })
 
--- ALSA volume bar
-theme.volume = lain.widget.alsabar({
-    timeout = 0.1,
-    notification_preset = { font = "Monospace 9"},
-    --togglechannel = "IEC958,3",
-    width = dpi(80), height = dpi(10), border_width = dpi(0),
-    colors = {
-        background = "#505050",
-        unmute     = "#A790D5",
-        mute       = "#FF9F9F"
-    },
-})
-theme.volume.bar.paddings = dpi(0)
-theme.volume.bar.margins = { top = dpi(10), bottom = dpi(10), left = dpi(6), right = dpi(6)}
+---- ALSA volume bar
+--theme.volume = lain.widget.alsabar({
+--    timeout = 0.1,
+--    notification_preset = { font = "Monospace 9"},
+--    --togglechannel = "IEC958,3",
+--    width = dpi(80), height = dpi(10), border_width = dpi(0),
+--    colors = {
+--        background = "#505050",
+--        unmute     = "#A790D5",
+--        mute       = "#FF9F9F"
+--    },
+--})
+--theme.volume.bar.paddings = dpi(0)
+--theme.volume.bar.margins = { top = dpi(10), bottom = dpi(10), left = dpi(6), right = dpi(6)}
 
 --local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
 --volumewidget = wibox.container.margin(volumewidget, dpi(0), dpi(0), dpi(5), dpi(5))
@@ -566,45 +606,12 @@ function theme.at_screen_connect(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(32) })
 
-    local playerctl = wibox.widget({
-	{
-		prev_icon,
-		next_icon,
-		stop_icon,
-		layout = wibox.layout.align.horizontal
-	},
-        play_pause_icon,
-	layout = wibox.layout.align.horizontal
-    })
-
-    playerctl:buttons(gears.table.join(
-	awful.button({}, 4, nil, function()
-		awful.spawn.with_shell("playerctl volume 0.05+")
-		awesome.emit_signal("playerctlvolume::update")
-	end),
-	awful.button({}, 5, nil, function()
-		awful.spawn.with_shell("playerctl volume 0.05-")
-		awesome.emit_signal("playerctlvolume::update")
-	end)
-    ))
-
-
-    playerctl:connect_signal("mouse::enter", function() 
-	    awesome.emit_signal("playerctlvolume::toggle", s)
+    audio_icon:connect_signal("button::release", function() 
+	    awesome.emit_signal("playerctlvolume::update", s)
+	    awesome.emit_signal("mastervolume::update", s)
+	    awesome.emit_signal("volumepanel::toggle", s)
     end)
 
-    playerctl:connect_signal("mouse::leave", function() 
-	    awesome.emit_signal("playerctlvolume::toggle", s)
-    end)
-    
-    theme.volume.bar:buttons(gears.table.join(
-	awful.button({}, 4, nil, function()
-		awful.spawn.with_shell("amixer sset Master 5%+")
-	end),
-	awful.button({}, 5, nil, function()
-		awful.spawn.with_shell("amixer sset Master 5%-")
-	end)
-    ))
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
@@ -662,17 +669,19 @@ function theme.at_screen_connect(s)
                   clock_icon,
                   clockwidget,
 		  separator,
-                  --prev_icon,
-                  --next_icon,
-                  --stop_icon,
-                  --play_pause_icon,
-		  playerctl,
+                  prev_icon,
+                  next_icon,
+                  stop_icon,
+                  play_pause_icon,
 		  space1,
 		  separator,
                   mpd_icon,
 		  separator,
+		  microphone.icon,
+		  separator,
                   --volumewidget,
-                  theme.volume.bar,
+                  --theme.volume.bar,
+		  audio_icon,
 		  separator,
 		  notifs.icon,
 		  separator,
