@@ -25,7 +25,7 @@ return function(s)
 		widget = wibox.widget.textbox,
 	})
 
-	local app_name = wibox.widget.textbox(markup.fontfg(beautiful.font_light, "#A0A0A0", string.upper("calendar")))
+	local app_name = wibox.widget.textbox(markup.fontfg(beautiful.font_light, "#A0A0A0", "CALENDAR"))
 
 	local space = wibox.widget.textbox(markup.font("Roboto 3", "   "))
 
