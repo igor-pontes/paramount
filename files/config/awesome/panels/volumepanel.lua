@@ -9,11 +9,12 @@ local helpers = require("helpers")
 local menubar = require("menubar")
 local lain  = require("lain")
 local markup = lain.util.markup
+local playerctl_daemon = require("signal.playerctl")
 
 local playerctl_volume_bar = wibox.widget({
 	max_value = 100,
 	value = 100,
-	forced_height = 5,
+	forced_height = dpi(2),
 	forced_width  = 200,
 	shape = helpers.ui.rrect(dpi(2)),
 	bar_shape = helpers.ui.rrect(dpi(2)),
@@ -26,7 +27,7 @@ local playerctl_volume_bar = wibox.widget({
 local master_volume_bar = wibox.widget({
 	max_value = 100,
 	value = 100,
-	forced_height = 5,
+	forced_height = dpi(2),
 	forced_width  = 200,
 	shape = helpers.ui.rrect(dpi(2)),
 	bar_shape = helpers.ui.rrect(dpi(2)),
@@ -116,10 +117,9 @@ return function(s)
 
 	local separator = wibox.widget({
 		orientation = "vertical",
-		--color = "#A0A0A0",
-		color = "#505050",
-		thickness = dpi(0.5),
-		forced_width = dpi(50),
+		color = "#A0A0A0",
+		thickness = 0.3,--dpi(1),
+		forced_width = dpi(40),
 		widget = wibox.widget.separator
 	})
 
@@ -136,7 +136,7 @@ return function(s)
 							direction = "east",
 							widget = wibox.container.rotate,
 						},
-						margins = { left = dpi(20), right = dpi(25), top = dpi(5) },
+						margins = { left = dpi(25), right = dpi(25), top = dpi(5) },
 						widget = wibox.container.margin,
 					},
 					pctl_audio
@@ -156,12 +156,12 @@ return function(s)
 							direction = "east",
 							widget = wibox.container.rotate,
 						},
-						margins = { left = dpi(20), right = dpi(25), top = dpi(5) },
+						margins = { left = dpi(25), right = dpi(25), top = dpi(5) },
 						widget = wibox.container.margin,
 					},
 					master_audio
 				},
-				forced_width = dpi(65),
+				forced_width = dpi(60),
 				widget = wibox.container.margin,
 			},
 	})
@@ -224,10 +224,11 @@ return function(s)
 				},
 				{
 					{
-						layout = wibox.layout.fixed.horizontal,
 						volumes,
+						halign = "center",
+						widget = wibox.container.place,
 					},
-					margins = dpi(15),
+					margins = {top = dpi(10), bottom = dpi(10)},
 					widget = wibox.container.margin,
 				},
 			},
@@ -248,6 +249,10 @@ return function(s)
 		end
 	end)
 
+	playerctl_daemon:connect_signal("volume", function(vol, _)
+		awful.spawn.with_shell("playerctl volume " .. tostring(vol))
+		awesome.emit_signal("playerctlvolume::update")
+	end)
 	awesome.connect_signal("playerctlvolume::update", function()
 		awful.spawn.easy_async_with_shell(
 			"playerctl volume",
@@ -261,7 +266,11 @@ return function(s)
 				else
 					pctl_audio_icon:set_markup("<span foreground='#A0A0A0'></span>")
 				end
-				playerctl_volume_bar:set_value(pctl_volume * 100)
+				if pctl_volume then 
+					playerctl_volume_bar:set_value(pctl_volume * 100)
+				else
+					playerctl_volume_bar:set_value(0)
+				end
 			end
 		)
 	end)
@@ -271,12 +280,16 @@ return function(s)
 			if not pctl_muted then 
 				awful.spawn.with_shell("playerctl volume 0.05+")
 			end
-			pctl_volume = pctl_volume + amount
+			if pctl_volume then
+				pctl_volume = pctl_volume + amount
+			end
 		else
 			if not pctl_muted then 
 				awful.spawn.with_shell("playerctl volume 0.05-")
 			end
-			pctl_volume = pctl_volume - amount
+			if pctl_volume then
+				pctl_volume = pctl_volume - amount
+			end
 		end
 		awesome.emit_signal("playerctlvolume::update")
 	end)
