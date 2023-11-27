@@ -1,5 +1,5 @@
 # Paramount Theme
-![image](https://github.com/fafuja/paramount/assets/46684536/eb4713e5-8297-40ca-a1c1-67f0be81223c)
+![image](https://github.com/fafuja/paramount/assets/46684536/efa9f2f4-0cd4-4b3f-b014-ab4de5dc9cf7)
 
  - Window Manager: AwesomeWM
  - Awesome Theme: Paramount
