@@ -8,6 +8,8 @@
  - Icon Theme: Colloid
  - Terminal: Alacritty
 
+Inspired by the "[paramount](https://github.com/owickstrom/vim-colors-paramount)" color scheme for Vim editor
+
 ## TODO
 - Code refactoring (current code is a mess!)
   
