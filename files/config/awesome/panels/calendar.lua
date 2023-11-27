@@ -9,21 +9,9 @@ local helpers = require("helpers")
 local menubar = require("menubar")
 local lain  = require("lain")
 local markup = lain.util.markup
---local widgets = require("helpers.widgets")
 
 calendar_text = wibox.widget.textbox("")
 return function(s)
-
-	local tolow = string.lower
-
-	local app_icon = ""
-	local app_icon_n = wibox.widget({
-		font = beautiful.icon_font .. "Round 10",
-		markup = "<span foreground='" .. "#A0A0A0" .. "'>" .. app_icon .. "</span>",
-		align = "center",
-		valign = "center",
-		widget = wibox.widget.textbox,
-	})
 
 	local app_name = wibox.widget.textbox(markup.fontfg(beautiful.font_light, "#A0A0A0", "CALENDAR"))
 
@@ -83,23 +71,9 @@ return function(s)
 				},
 				{
 					{
-						layout = wibox.layout.fixed.vertical,
-						{
-							calendar_text,
-							margins = { top = dpi(5), left = dpi(15) },
-							widget = wibox.container.margin,
-						},
-						{
-							helpers.ui.vertical_pad(dpi(10)),
-							{
-								--actions,
-								shape = helpers.ui.rrect(dpi(2)),
-								widget = wibox.container.background,
-							},
-							--visible = n.actions and #n.actions > 0,
-							visible = true,
-							layout = wibox.layout.fixed.vertical,
-						},
+						calendar_text,
+						margins = { top = dpi(5), left = dpi(15) },
+						widget = wibox.container.margin,
 					},
 					margins = dpi(15),
 					widget = wibox.container.margin,

@@ -10,10 +10,6 @@ local helpers = require("helpers")
 local menubar = require("menubar")
 local lain  = require("lain")
 local markup = lain.util.markup
---local widgets = require("helpers.widgets")
-
---- Naughty Notifications with animation
---- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 naughty.persistence_enabled = true
 naughty.config.defaults.ontop = true
@@ -192,7 +188,6 @@ naughty.connect_signal("request::display", function(n)
 					{
 						{
 							layout = wibox.layout.align.horizontal,
-							--app_name,
 							{
 								app_icon_n,
 								space,

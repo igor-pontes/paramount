@@ -1,10 +1,3 @@
---[[
-
-     Holo Awesome WM theme 3.0
-     github.com/lcpz
-
---]]
-
 local gears = require("gears")
 local helpers = require("helpers")
 local lain  = require("lain")
@@ -241,8 +234,6 @@ theme.cal = helpers.cal({
     }
 })
 
---local separator = wibox.widget.textbox(markup.fontfg("#3A3A3A", "︱"))
---local separator = wibox.widget.textbox(space3 .. markup.fontfg("monospace 8", "#3A3A3A", "┃") .. space3)
 local separator = wibox.widget.textbox(space3 .. markup.fontfg("monospace 8", "#4E4E4E", "🭲") .. space3)
 
 -- MPD
@@ -252,7 +243,6 @@ helpers.ui.add_hover_cursor(mpd_icon, "hand1")
 mpd_icon:connect_signal("button::press", function(_, _, _, _) 
 	awful.spawn.easy_async_with_shell(theme.musicplr, function() end)
 end)
---local mpd_icon = awful.widget.launcher({ image = theme.mpdl, command = theme.musicplr })
 local prev_icon = wibox.widget.textbox(markup.font(icomoon_larger, " "))
 local next_icon = wibox.widget.textbox(markup.font(icomoon_larger, " "))
 local stop_icon = wibox.widget.textbox(markup.font(icomoon_larger, " "))
@@ -310,40 +300,10 @@ local bat = lain.widget.bat({
     end
 })
 
----- ALSA volume bar
---theme.volume = lain.widget.alsabar({
---    timeout = 0.1,
---    notification_preset = { font = "Monospace 9"},
---    --togglechannel = "IEC958,3",
---    width = dpi(80), height = dpi(10), border_width = dpi(0),
---    colors = {
---        background = "#505050",
---        unmute     = "#A790D5",
---        mute       = "#FF9F9F"
---    },
---})
---theme.volume.bar.paddings = dpi(0)
---theme.volume.bar.margins = { top = dpi(10), bottom = dpi(10), left = dpi(6), right = dpi(6)}
-
---local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
---volumewidget = wibox.container.margin(volumewidget, dpi(0), dpi(0), dpi(5), dpi(5))
-
 -- Temp text
 local temp_text = wibox.widget.textbox(markup.font(theme.font, "°C"))
 
 -- Net
-local netdown_icon = wibox.widget.textbox(markup.font("icomoon 15", ""))
-local netup_icon = wibox.widget.textbox(markup.font("icomoon 15", ""))
-
---  
---local net_icon = wibox.widget.textbox(markup.font("icomoon 15", ""))
-
-local net = lain.widget.net({
-    settings = function()
-        widget:set_markup(markup.font("Roboto 8", "  ") .. markup.font(theme.font, net_now.received .. " - " .. net_now.sent .. markup.font("Roboto 8", "  ")))
-    end
-})
-
 local font_icon = "Material Icons Round 15"
 local net_text = wibox.widget.textbox(markup.font(font_icon, ""))
 
@@ -385,7 +345,6 @@ local cputemp = lain.widget.temp({
 })
 
 -- GPU
---local gpu_icon = wibox.widget.imagebox(theme.gpu)
 local gpu_icon = wibox.widget.textbox(markup.font(icomoon, "") .. space3 .. markup.font(theme.font_light, "GPU") .. space3)
 local gputemp = helpers.gputemp({
   timeout = 5,
@@ -439,7 +398,6 @@ function theme.at_screen_connect(s)
                            awful.button({}, 5, function () awful.layout.inc(-1) end)))
 
     -- Create a taglist widget
-    --s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
     local taglist_buttons = gears.table.join(
       awful.button({}, 1, function(t)
       	t:view_only()
@@ -484,14 +442,6 @@ function theme.at_screen_connect(s)
         		},
         	})
 
-        	--self.indicator_animation = animation:new({
-        	--	duration = 0.125,
-        	--	easing = animation.easing.linear,
-        	--	update = function(self, pos)
-        	--		indicator.children[1].forced_width = pos
-        	--	end,
-        	--})
-        
         	self:set_widget(indicator)
         
         	if c3.selected then
@@ -505,36 +455,19 @@ function theme.at_screen_connect(s)
         		--self.indicator_animation:set(dpi(16))
         	end
         
-        	--- Tag preview
-        	--self:connect_signal("mouse::enter", function()
-        	--	if #c3:clients() > 0 then
-        	--		awesome.emit_signal("bling::tag_preview::update", c3)
-        	--		awesome.emit_signal("bling::tag_preview::visibility", s, true)
-        	--	end
-        	--end)
-        
-        	--self:connect_signal("mouse::leave", function()
-        	--	awesome.emit_signal("bling::tag_preview::visibility", s, false)
-        	--end)
         end,
         update_callback = function(self, c3, _)
         	if c3.selected then
         		self.widget.children[1].bg = accent
-        		--self.indicator_animation:set(dpi(32))
         	elseif #c3:clients() == 0 then
         		self.widget.children[1].bg = dim_tag
-        		--self.indicator_animation:set(dpi(8))
         	else
         		self.widget.children[1].bg = active_tag
-        		--self.indicator_animation:set(dpi(16))
         	end
         end,
         },
 	buttons = taglist_buttons,
     })
-
-    --mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    --s.mytag = wibox.container.margin(mytaglistcont, dpi(0), dpi(0), dpi(5), dpi(5))
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
@@ -555,31 +488,6 @@ function theme.at_screen_connect(s)
       	},
       })
       
-      --local system_tray_animation = animation:new({
-      --	easing = animation.easing.linear,
-      --	duration = 0.125,
-      --	update = function(self, pos)
-      --		widget.width = pos
-      --	end,
-      --})
-      
-      --local arrow = wbutton.text.state({
-      --	text_normal_bg = accent,
-      --	normal_bg = "#303030",
-      --	font = "Material Icons " .. "Round ",
-      --	size = 18,
-      --	text = "",
-      --	on_turn_on = function(self)
-      --		--system_tray_animation:set(400)
-      --  	widget.width = 400
-      --		self:set_text("")
-      --	end,
-      --	on_turn_off = function(self)
-      --		--system_tray_animation:set(0)
-      --  	widget.width = 0
-      --		self:set_text("")
-      --	end,
-      --})
       local arrow = wibox.widget.textbox(markup.font("Material Icons Round 12", ""))
       helpers.ui.add_hover_cursor(arrow, "hand1")
 
@@ -603,6 +511,7 @@ function theme.at_screen_connect(s)
       	widget,
       })
     end
+
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(32) })
 
@@ -679,8 +588,6 @@ function theme.at_screen_connect(s)
 		  separator,
 		  microphone.icon,
 		  separator,
-                  --volumewidget,
-                  --theme.volume.bar,
 		  audio_icon,
 		  separator,
 		  notifs.icon,

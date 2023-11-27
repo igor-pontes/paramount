@@ -17,8 +17,6 @@ return function(s)
 	
 	s.notifbox_layout = notifbox.notifbox_layout
 
-	local tolow = string.lower
-
 	local app_name = wibox.widget.textbox(markup.fontfg(beautiful.font_light, "#A0A0A0", string.upper("notifications")))
 
 	local space = wibox.widget.textbox(markup.font("Roboto 3", "   "))
@@ -41,39 +39,6 @@ return function(s)
 		notifbox.reset_notifbox_layout()
 	end)
 
-
-	--local actions = wibox.widget({
-	--	notification = n,
-	--	base_layout = wibox.widget({
-	--		spacing = dpi(3),
-	--		layout = wibox.layout.flex.horizontal,
-	--	}),
-	--	widget_template = {
-	--		{
-	--			{
-	--				{
-	--					id = "text_role",
-	--					font = beautiful.font_light,
-	--					widget = wibox.widget.textbox,
-	--				},
-	--				left = dpi(6),
-	--				right = dpi(6),
-	--				widget = wibox.container.margin,
-	--			},
-	--			widget = wibox.container.place,
-	--		},
-	--		bg = "#303030",
-	--		forced_height = dpi(25),
-	--		forced_width = dpi(70),
-	--		widget = wibox.container.background,
-	--	},
-	--	style = {
-	--		underline_normal = false,
-	--		underline_selected = true,
-	--	},
-	--	widget = naughty.list.actions,
-	--})
-	
 	s.notifs = awful.popup({
 		type = "dock",
 		screen = s,
@@ -89,14 +54,9 @@ return function(s)
 		visible = false,
 		placement = function(w) 
 			awful.placement.top_right(w, { honor_workarea = true, margins = { top = dpi(5), right = dpi(5) }})
-			--awful.placement.maximize_vertically(
-			--	w,
-			--	{ honor_workarea = true, margins = { top = dpi(5), bottom = dpi(5) } }
-			--)
 		end,
 		widget = {
 			{
-				--layout = wibox.layout.fixed.vertical,
 				layout = wibox.layout.align.vertical,
 				{
 					{
