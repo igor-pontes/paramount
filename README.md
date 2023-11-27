@@ -30,5 +30,5 @@ Inspired by "[Paramount](https://github.com/owickstrom/vim-colors-paramount)". A
 
 - Volume panel
   
-![image](https://github.com/fafuja/paramount/assets/46684536/7f0e5fb2-01da-49e5-8dd6-3bf5e40b5dc7)
+![image](https://github.com/fafuja/paramount/assets/46684536/13faff44-3f1f-4e56-a5e1-9ab42f33c308)
 
