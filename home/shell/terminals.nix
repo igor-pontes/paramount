@@ -11,7 +11,7 @@
       font.offset.y = 1;
       font.normal.family = "AestheticIosevka";
       font.normal.style = "Regular";
-      font.size = 14.0;
+      font.size = 12.0;
       scrolling.history = 10000;
 
       colors = {
