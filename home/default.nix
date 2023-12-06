@@ -3,7 +3,6 @@
   imports = [
     ./awesome
     ./programs
-    ./rofi
     ./shell
     ./modules
   ];

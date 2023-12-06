@@ -30,7 +30,7 @@ function _ui.add_hover_and_release_cursor(w, hover_cursor)
 		end
 	end)
 
-	w:connect_signal("button::release", function()
+	w:connect_signal("button::press", function()
 		local widget = capi.mouse.current_wibox
 		if widget then
 			widget.cursor = original_cursor

@@ -11,7 +11,7 @@
     zip
     docker
     openvpn
-
+    texliveFull
     blender
     gcc
     unzip

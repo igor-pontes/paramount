@@ -9,7 +9,8 @@
       window.padding.y = 0;
 
       font.offset.y = 1;
-      font.normal.family = "AestheticIosevka";
+      #font.normal.family = "AestheticIosevka";
+      font.normal.family = "Iosevka";
       font.normal.style = "Regular";
       font.size = 12.0;
       scrolling.history = 10000;

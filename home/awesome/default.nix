@@ -1,37 +1,36 @@
 { pkgs, lib, bling, wsmcolor, wsmupower, layout-machi, ... }:
-#let 
-#  lua-pam = with pkgs; (stdenv.mkDerivation {
-#    name = "lua-pam";
-#    buildInputs = [ pam lua ];
-#    nativeBuildInputs = [ cmake ];
-#    src = fetchFromGitHub {
-#      owner = "skobman";
-#      repo = "lua-pam";
-#      rev = "master";
-#      sha256 = "sha256-Kn0ozckmgxs19TmCuSChdiYMch92eif7DTEK+UoBtjw=";
-#    };
-#    # By default; this runs `make install`.
-#    # # The install phase will fail if there is no makefile; so it is the
-#    # best choice to replace with our custom code.
-#    configurePhase = ''
-#      mkdir $out
-#      mv ./* $out
-#    '';
-#    buildPhase = ''
-#      cd $out
-#      SOURCE_DIR=$out
-#      cmake $out -B build
-#      cd build
-#      make
-#    '';
-#    installPhase = ''
-#      echo "$(pwd)"
-#      echo "$(ls)"
-#      mv ./liblua_pam.so ../liblua_pam.so
-#    '';
-#    outputs = [ "out" ];
-#  });
-#in
+let 
+  lua-pam = with pkgs; (stdenv.mkDerivation {
+    name = "lua-pam";
+    buildInputs = [ pam lua ];
+    nativeBuildInputs = [ cmake ];
+    src = fetchFromGitHub {
+      owner = "skobman";
+      repo = "lua-pam";
+      rev = "master";
+      sha256 = "sha256-Kn0ozckmgxs19TmCuSChdiYMch92eif7DTEK+UoBtjw=";
+    };
+    configurePhase = ''
+      mkdir $out
+      mv ./* $out
+    '';
+    buildPhase = ''
+      cd $out
+      SOURCE_DIR=$out
+      cmake $out -B build
+      cd build
+      make
+    '';
+    installPhase = ''
+      echo "$(pwd)"
+      echo "$(ls)"
+      mv ./liblua_pam.so ../liblua_pam.so
+      cd ../ 
+      rm -r $(ls | grep -v liblua_pam.so)
+    '';
+    outputs = [ "out" ];
+  });
+in
 {
   home.file.".config/" = { 
     source = ../../files/config;
@@ -44,7 +43,7 @@
   #};
 
   home.file.".config/awesome/modules/lockscreen/lib" = { 
-    source = ../../files/lib/pam;
+    source = lua-pam;
     recursive = true;
   };
 

@@ -22,7 +22,7 @@
     #nnn
   ];
 
-  documentation.dev.enable = true;
+  #documentation.dev.enable = true;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
@@ -39,7 +39,7 @@
   services.printing.enable = true;
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       material-icons
       iosevka
       roboto

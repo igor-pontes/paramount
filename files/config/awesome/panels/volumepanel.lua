@@ -51,6 +51,8 @@ local master_audio_icon = wibox.widget({
 	widget = wibox.widget.textbox,
 })
 
+local player_name = "MPD"
+
 local pctl_volume = 100
 local pctl_muted = false
 
@@ -77,7 +79,7 @@ return function(s)
 	local app_name = wibox.widget.textbox(markup.fontfg(beautiful.font_light, "#A0A0A0", string.upper("volume")))
 
 	local pctl_vol_name = wibox.widget({
-		markup = markup.fontfg(beautiful.font_light, "#A0A0A0", "PLAYERCTL"),
+		markup = markup.fontfg(beautiful.font_light, "#A0A0A0", string.upper(player_name)),
 		halign = "center",
 		widget = wibox.widget.textbox,
 	})
@@ -106,13 +108,20 @@ return function(s)
 	end)
 
 	pctl_audio:connect_signal("button::press", function() 
-		if pctl_muted then 
-			os.execute("playerctl volume " .. tostring(pctl_volume))
-		else
-			os.execute("playerctl volume 0")
-		end
 		pctl_muted = not pctl_muted
-		awesome.emit_signal("playerctlvolume::update")
+		if not pctl_muted then 
+			if pctl_volume ~= 0 then
+				os.execute("playerctl -p " .. string.lower(player_name) .. " volume " .. tostring(pctl_volume))
+			else
+				awesome.emit_signal("playerctlvolume::update")
+			end
+		else
+			if pctl_volume ~= 0 then
+				os.execute("playerctl -p " .. string.lower(player_name) .. " volume 0")
+			else
+				awesome.emit_signal("playerctlvolume::update")
+			end
+		end
 	end)
 
 	local separator = wibox.widget({
@@ -249,13 +258,23 @@ return function(s)
 		end
 	end)
 
-	playerctl_daemon:connect_signal("volume", function(vol, _)
-		awful.spawn.with_shell("playerctl volume " .. tostring(vol))
+	playerctl_daemon:connect_signal("volume", function(_, vol, _)
+		if vol == 0 and pctl_volume ~= 0 and pctl_muted then
+			pctl_muted = true
+		else
+			pctl_muted = false
+		end
 		awesome.emit_signal("playerctlvolume::update")
 	end)
+
+	playerctl_daemon:connect_signal("metadata", function(_, _, _, _, _, _, player)
+		player_name = player
+		pctl_vol_name:set_markup(markup.fontfg(beautiful.font_light, "#A0A0A0", string.upper(player_name)))
+	end)
+
 	awesome.connect_signal("playerctlvolume::update", function()
 		awful.spawn.easy_async_with_shell(
-			"playerctl volume",
+			"playerctl volume -p " .. string.lower(player_name),
 			function(out)
 				if not pctl_muted then 
 					pctl_volume = tonumber(out)
@@ -278,18 +297,21 @@ return function(s)
 	awesome.connect_signal("playerctlvolume::update:variable", function(amount, increase)
 		if increase then 
 			if not pctl_muted then 
-				awful.spawn.with_shell("playerctl volume 0.05+")
+				awful.spawn.with_shell("playerctl -p " .. string.lower(player_name) .. " volume 0.05+")
 			end
 			if pctl_volume then
 				pctl_volume = pctl_volume + amount
 			end
 		else
 			if not pctl_muted then 
-				awful.spawn.with_shell("playerctl volume 0.05-")
+				awful.spawn.with_shell("playerctl -p " .. string.lower(player_name) .. " volume 0.05-")
 			end
 			if pctl_volume then
 				pctl_volume = pctl_volume - amount
 			end
+		end
+		if pctl_volume < 0 then
+			pctl_volume = 0
 		end
 		awesome.emit_signal("playerctlvolume::update")
 	end)

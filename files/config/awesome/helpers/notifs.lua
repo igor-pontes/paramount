@@ -23,7 +23,7 @@ local function factory(args)
     end
 
     function notifs.attach(widget)
-        widget:connect_signal("button::release", notifs.press)
+        widget:connect_signal("button::press", notifs.press)
     end
 
     for _, widget in pairs(notifs.attach_to) do notifs.attach(widget) end

@@ -533,8 +533,6 @@ globalkeys = mytable.join(
     end, {description = "restore minimized", group = "client"}),
 
     -- Widgets popups
-    awful.key({ altkey, }, "c", function () if beautiful.cal then beautiful.cal.show(7) end end,
-              {description = "show calendar", group = "widgets"}),
     awful.key({ modkey, "Shift" }, "f", function () awful.spawn(file_manager) end,
               {description = "Open file manager", group = "launcher"}),
 

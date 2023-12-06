@@ -515,7 +515,7 @@ function theme.at_screen_connect(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(32) })
 
-    audio_icon:connect_signal("button::release", function() 
+    audio_icon:connect_signal("button::press", function() 
 	    awesome.emit_signal("playerctlvolume::update", s)
 	    awesome.emit_signal("mastervolume::update", s)
 	    awesome.emit_signal("volumepanel::toggle", s)
