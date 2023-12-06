@@ -65,7 +65,7 @@ in {
     };
     tty = 0;
 
-    modules = with pkgs.xorg; [ xhost xinit xinput xorgserver xf86inputjoystick xrandr xinput xwininfo];
+    modules = with pkgs.xorg; [ xhost xinit xinput xorgserver xf86inputjoystick xrandr xwininfo ];
 
     windowManager.awesome = with pkgs; {
       enable = true;
@@ -100,7 +100,6 @@ in {
     picom-next
     gpick
     pam
-    xorg.xinput
     xsel
     mpv
     feh
