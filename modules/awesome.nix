@@ -1,16 +1,5 @@
 { pkgs, pkgs-unstable, lib, stdenv, ... }:
 let
-  getLuaPath = lib: dir: "${lib}/${dir}/lua/${pkgs.luajit.luaversion}";
-  makeSearchPath = lib.concatMapStrings (
-    path:
-      " --search "
-      + (getLuaPath path "share")
-      + " --search "
-      + (getLuaPath path "lib")
-  );
-  modules = with pkgs; [
-    pkgs.lua5_4
-  ];
   awesome-git = pkgs.awesome.overrideAttrs (old: 
     let
       luaEnv = pkgs.lua.withPackages(ps: with ps; [ luadbi-mysql luaposix ldbus lgi ldoc luarocks]);
