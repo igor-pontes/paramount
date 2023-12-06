@@ -5,7 +5,7 @@ let
     buildInputs = [ pam lua ];
     nativeBuildInputs = [ cmake ];
     src = fetchFromGitHub {
-      owner = "skobman";
+      owner = "fafuja";
       repo = "lua-pam";
       rev = "master";
       sha256 = "sha256-Kn0ozckmgxs19TmCuSChdiYMch92eif7DTEK+UoBtjw=";
