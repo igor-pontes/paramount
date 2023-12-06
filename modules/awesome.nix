@@ -3,7 +3,6 @@ let
   awesome-git = pkgs.awesome.overrideAttrs (old: 
     let
       luaEnv = pkgs.lua.withPackages(ps: with ps; [ luadbi-mysql luaposix ldbus lgi ldoc luarocks]);
-      python = pkgs.python3.withPackages(ps: with ps; [ mutagen ]);
     in 
     with pkgs; {
     lua = pkgs.luajit;
@@ -13,7 +12,7 @@ let
     cmakeFlags = old.cmakeFlags ++ [ "-DGENERATE_MANPAGES=OFF" ];
     GI_TYPELIB_PATH =
     let
-      extraGIPackages = with pkgs; [ pango upower playerctl python ];
+      extraGIPackages = with pkgs; [ pango upower playerctl ];
       mkTypeLibPath = pkg: "${pkg}/lib/girepository-1.0";
       extraGITypeLibPaths = lib.forEach extraGIPackages mkTypeLibPath;
     in
@@ -61,8 +60,7 @@ in {
 
     displayManager = {
         defaultSession = "none+awesome";
-	startx.enable = true;
-    };
+	startx.enable = true; };
     tty = 0;
 
     modules = with pkgs.xorg; [ xhost xinit xinput xorgserver xf86inputjoystick xrandr xwininfo ];
@@ -112,6 +110,7 @@ in {
     spotify
     acpi
     dbus
+    (pkgs.python3.withPackages(ps: with ps; [ mutagen ]))
     alsa-utils
     ffmpeg
     # xfce.xfce4-power-manager
