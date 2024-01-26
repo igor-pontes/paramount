@@ -12,6 +12,7 @@
     docker
     openvpn
     texliveFull
+    teamspeak5_client
     blender
     gcc
     unzip

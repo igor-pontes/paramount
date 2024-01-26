@@ -7,6 +7,7 @@
     ./modules
   ];
 
+  # Use mopidy instead!
   services.mpd = {
     enable = true;
     network.listenAddress = "any";
@@ -38,7 +39,7 @@
       	type		           "httpd"
       	name		           "lossless"
       	encoder		           "flac"
-      	port		           "8000"
+      	port		           "9090"
       	max_client	           "8"
       	mixer_type	           "software"
       	format		           "44100:16:2"
@@ -46,7 +47,6 @@
     '';
   };
 
-  # mpdris2 service not work if not used here... (DBUS_SESSION_BUS_ADDRESS)
   services.mpdris2.enable = true;
   services.mpdris2.notifications = false;
   services.mpdris2.multimediaKeys = false;
@@ -62,7 +62,7 @@
   home = {
     username = "fafuja";
     homeDirectory = "/home/fafuja";
-    stateVersion = "23.05";
+    stateVersion = "23.11";
     sessionVariables = {
       XCURSOR_SIZE = 10;
       XCURSOR_THEME = "Colloid-cursors";

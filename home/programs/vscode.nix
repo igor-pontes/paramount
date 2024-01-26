@@ -15,6 +15,8 @@
       "workbench.editor.enablePreview" = false;
       "terminal.integrated.fontFamily" = "Iosevka";
       "editor.fontFamily" = "Iosevka";
+      "window.commandCenter" = true;
+      "debug.toolBarLocation" = "floating";
       "editor.fontLigatures" = true;
       "window.menuBarVisibility" = "toggle";
       "window.zoomLevel" = -1;

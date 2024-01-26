@@ -12,8 +12,12 @@
       #font.normal.family = "AestheticIosevka";
       font.normal.family = "Iosevka";
       font.normal.style = "Regular";
-      font.size = 12.0;
+      font.size = 10.0;
       scrolling.history = 10000;
+
+      key_bindings = [
+        { key = "X"; mods = "Control"; mode = "~Search"; action = "ToggleViMode"; }
+      ];
 
       colors = {
         primary.background = "0x121212";

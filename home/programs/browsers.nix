@@ -20,7 +20,7 @@
           #ghostery
           clearurls
           canvasblocker
-          persistentpin
+          #persistentpin
           snowflake
           xbrowsersync
           grammarly

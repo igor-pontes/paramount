@@ -352,13 +352,13 @@ globalkeys = mytable.join(
               {description="show help", group="awesome"}),
 
     -- Default client focus
-    awful.key({ altkey,           }, "j",
+    awful.key({ altkey, "Shift" }, "j",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ altkey,           }, "k",
+    awful.key({ altkey, "Shift" }, "k",
         function ()
             awful.client.focus.byidx(-1)
         end,

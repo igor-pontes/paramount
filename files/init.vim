@@ -38,31 +38,37 @@ nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
 nnoremap <esc> :noh<return><esc>
 map <M-Up> <A-k>
 map <M-Down> <A-j>
-noremap <C-A-j> <C-W>w
-noremap <C-A-k> <C-W>W
-noremap <C-A-l> <C-W>l
-noremap <C-A-h> <C-W>h
+"noremap <C-A-j> <C-W>w
+"noremap <C-A-k> <C-W>W
+"noremap <C-A-l> <C-W>l
+"noremap <C-A-h> <C-W>h
 noremap <C-Up> <C-Y>
 noremap <C-Down> <C-E>
-noremap <C-k> <S-Up>
-noremap <C-j> <S-Down>
+
+noremap <C-A-k> <S-Up>
+noremap <C-A-j> <S-Down>
+
+" Go back files
+"noremap <C-A-o> :e#<CR>
+noremap <C-A-o> :bp<CR>
+
 "noremap <C-D> <cmd>YcmCompleter GetHover<cr>
 "nnoremap <A-W> :keepjumps normal! mi*`i<CR>
 nnoremap <A-W> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+nnoremap <A-w> :noh<CR>
 "nmap <leader>D <plug>(YCMHover)
 "nnoremap <leader>gl <cmd>YcmCompleter GoToDeclaration<CR>
 "nnoremap <leader>gd <cmd>YcmCompleter GoToDefinition<CR>
 "nnoremap gb <C-o>
 "nnoremap gn <C-i>
-nnoremap g] <C-o>
-nnoremap g[ <C-i>
+"nnoremap g] <C-o>
+"nnoremap g[ <C-i>
 " nnoremap <M-Up> ddkP
 " nnoremap <M-Down> ddp
 " nnoremap \\ :noh<return>
 " set noswapfile            " disable creating swap file
 " set backupdir=~/.cache/vim " Directory to store backup files
 " set spell                 " enable spell check (may need to download language package)
-
 lua << EOF
 
 -- Setup language servers.

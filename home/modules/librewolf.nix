@@ -3,7 +3,7 @@
 with lib;
 
 let
-  #pkgs = pkgs-unstable;
+  pkgs = pkgs-unstable;
 
   cfg = config.modules.librewolf;
 
@@ -11,7 +11,7 @@ let
 
   extensionPath = "extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}";
 
-  jsonFormat = pkgs-unstable.formats.json { };
+  jsonFormat = pkgs.formats.json { };
 
   profiles = flip mapAttrs' cfg.profiles (_: profile:
     nameValuePair "Profile${toString profile.id}" {
@@ -63,8 +63,8 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs-unstable.librewolf;
-      defaultText = literalExpression "pkgs-unstable.librewolf";
+      default = pkgs.librewolf;
+      defaultText = literalExpression "pkgs.librewolf";
       description = "The LibreWolf package to use.";
     };
     
@@ -201,7 +201,7 @@ in {
         '' + concatStringsSep "\n" (mapAttrsToList mkMsg duplicates);
       })
 
-      (lib.hm.assertions.assertPlatform "programs.librewolf" pkgs-unstable
+      (lib.hm.assertions.assertPlatform "programs.librewolf" pkgs
         lib.platforms.linux)
     ];
 
@@ -225,7 +225,7 @@ in {
       "${librewolfPath}/${profile.path}/extensions" =
         mkIf (profile.extensions != [ ]) {
           source = let
-            extensionsEnvPkg = pkgs-unstable.buildEnv {
+            extensionsEnvPkg = pkgs.buildEnv {
               name = "firefox-addons";
               paths = profile.extensions;
             };
@@ -332,8 +332,8 @@ in {
             profile.path + profile.search.default
           else
 	    null;
-	in pkgs-unstable.runCommand "search.json.mozlz4" {
-          nativeBuildInputs = with pkgs-unstable; [ mozlz4a openssl ];
+	in pkgs.runCommand "search.json.mozlz4" {
+          nativeBuildInputs = with pkgs; [ mozlz4a openssl ];
           json = builtins.toJSON settings;
           inherit salt;
         } ''

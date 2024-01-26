@@ -1,5 +1,15 @@
 { pkgs, config, ... }:
-{
+let 
+  godot_custom = with pkgs; godot_4.overrideAttrs ( old: rec {
+    version = "4.1.1-stable";
+    src = fetchFromGitHub {
+      owner = "godotengine";
+      repo = "godot";
+      rev = "4.1.1-stable";
+      hash = "sha256-v9qKrPYQz4c+xkSu/2ru7ZE5EzKVyXhmrxyHZQkng2U=";
+    };
+  });
+in {
   home.packages = with pkgs; [
     # audio control
     pavucontrol
@@ -9,15 +19,8 @@
     imv
     # games
     #steam
-    (godot_4.overrideAttrs ( old: rec {
-    	version = "4.1.1-stable";
-	src = fetchFromGitHub {
-	  owner = "godotengine";
-	  repo = "godot";
-	  rev = "4.1.1-stable";
-	  hash = "sha256-v9qKrPYQz4c+xkSu/2ru7ZE5EzKVyXhmrxyHZQkng2U=";
-	};
-    }))
+    godot_4
+    #godot_custom
   ];
 
   programs = {
